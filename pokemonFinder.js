@@ -5,7 +5,7 @@ button.addEventListener("click", () => {
     let p = document.getElementById("show-pokemon-name");
     let img = document.getElementById("img");
 
-    xhttp.open("GET", `https://pokeapi.co/api/v2/pokemon/${pokemonName}/`);
+    xhttp.open("GET", `https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}/`);
     xhttp.send();
 
     xhttp.onreadystatechange = function () {
