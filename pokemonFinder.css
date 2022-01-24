@@ -18,7 +18,7 @@ header{
 
 #logo {
     width: 35%;
-    padding: 0;
+    padding: 12px 0 0;
     align-self: center;
 }
 
@@ -115,6 +115,7 @@ h1 {
     text-align: center;
     margin-bottom: 20px;
     border: 0;
+    width: 100px;
 }
 #caja::placeholder {
     text-align: center;

@@ -8,13 +8,7 @@ button.addEventListener("click", () => {
     let img = document.getElementById("img-1");
     let type1 = document.getElementById("type-pokemon-1-1");
     let type2 = document.getElementById("type-pokemon-1-2");
-    
-    let hp1 = document.getElementById("stat1-hp")
-    let atq1 = document.getElementById("stat1-atq")
-    let sAtq1 = document.getElementById("stat1-sAtq")
-    let def1 = document.getElementById("stat1-def")
-    let sDef1 = document.getElementById("stat1-sDef")
-    let spd = document.getElementById("stat1-spd")
+    let root = document.getElementById("stats-1");
 
     xhttp.open("GET", `https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}/`);
     xhttp.send();
@@ -26,8 +20,7 @@ button.addEventListener("click", () => {
             img.setAttribute("src", dataPokemon.sprites.front_default);
             p.textContent = dataPokemon.name;
 
-            if(dataPokemon.types.length == 2)
-            {
+            if (dataPokemon.types.length == 2) {
                 type1.textContent = dataPokemon.types[0].type.name;
                 type2.textContent = dataPokemon.types[1].type.name;
             } else {
@@ -35,15 +28,27 @@ button.addEventListener("click", () => {
                 type2.textContent = null;
             }
 
-            hp1.textContent = `Hp: ${dataPokemon.stats[0].base_stat}`;
-            atq1.textContent = `Atq: ${dataPokemon.stats[1].base_stat}`;
-            sAtq1.textContent = `S.Atq: ${dataPokemon.stats[2].base_stat}`;
-            def1.textContent = `Def: ${dataPokemon.stats[3].base_stat}`;
-            sDef1.textContent = `S.Def: ${dataPokemon.stats[4].base_stat}`;
-            spd.textContent = `Spd: ${dataPokemon.stats[5].base_stat}`;
+            while (root.firstChild) {
+                root.removeChild(root.firstChild);
+            }
+
+            function1(`Hp: ${dataPokemon.stats[0].base_stat}`, "stat1-hp");
+            function1(`Atq: ${dataPokemon.stats[1].base_stat}`, "stat1-atq");
+            function1(`S.Atq: ${dataPokemon.stats[2].base_stat}`, "stat1-sAtq");
+            function1(`Def: ${dataPokemon.stats[3].base_stat}`, "stat1-def");
+            function1(`S.Def: ${dataPokemon.stats[4].base_stat}`, "stat1-sDef");
+            function1(`Spd: ${dataPokemon.stats[5].base_stat}`, "stat1-spd");
         }
     }
 })
+
+function function1(tipoDeStat, statId) {
+    var ul = document.getElementById("stats-1");
+    var li = document.createElement("li");
+    li.appendChild(document.createTextNode(tipoDeStat));
+    li.setAttribute("id", statId);
+    ul.appendChild(li);
+}
 
 // Pokemon 2
 let button2 = document.getElementById("btn2");
@@ -55,13 +60,7 @@ button2.addEventListener("click", () => {
     let img = document.getElementById("img-2");
     let type1 = document.getElementById("type-pokemon-2-1");
     let type2 = document.getElementById("type-pokemon-2-2");
-
-    let hp1 = document.getElementById("stat2-hp")
-    let atq1 = document.getElementById("stat2-atq")
-    let sAtq1 = document.getElementById("stat2-sAtq")
-    let def1 = document.getElementById("stat2-def")
-    let sDef1 = document.getElementById("stat2-sDef")
-    let spd = document.getElementById("stat2-spd")
+    let root = document.getElementById("stats-2");
 
     xhttp.open("GET", `https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}/`);
     xhttp.send();
@@ -73,8 +72,7 @@ button2.addEventListener("click", () => {
             img.setAttribute("src", dataPokemon.sprites.front_default);
             p.textContent = dataPokemon.name;
 
-            if(dataPokemon.types.length == 2)
-            {
+            if (dataPokemon.types.length == 2) {
                 type1.textContent = dataPokemon.types[0].type.name;
                 type2.textContent = dataPokemon.types[1].type.name;
             } else {
@@ -82,12 +80,24 @@ button2.addEventListener("click", () => {
                 type2.textContent = null;
             }
 
-            hp1.textContent = `Hp: ${dataPokemon.stats[0].base_stat}`;
-            atq1.textContent = `Atq: ${dataPokemon.stats[1].base_stat}`;
-            sAtq1.textContent = `S.Atq: ${dataPokemon.stats[2].base_stat}`;
-            def1.textContent = `Def: ${dataPokemon.stats[3].base_stat}`;
-            sDef1.textContent = `S.Def: ${dataPokemon.stats[4].base_stat}`;
-            spd.textContent = `Spd: ${dataPokemon.stats[5].base_stat}`;
+            while (root.firstChild) {
+                root.removeChild(root.firstChild);
+            }
+
+            function2(`Hp: ${dataPokemon.stats[0].base_stat}`, "stat2-hp");
+            function2(`Atq: ${dataPokemon.stats[1].base_stat}`, "stat2-atq");
+            function2(`S.Atq: ${dataPokemon.stats[2].base_stat}`, "stat2-sAtq");
+            function2(`Def: ${dataPokemon.stats[3].base_stat}`, "stat2-def");
+            function2(`S.Def: ${dataPokemon.stats[4].base_stat}`, "stat2-sDef");
+            function2(`Spd: ${dataPokemon.stats[5].base_stat}`, "stat2-spd");
         }
     }
 })
+
+function function2(tipoDeStat, statId) {
+    var ul = document.getElementById("stats-2");
+    var li = document.createElement("li");
+    li.appendChild(document.createTextNode(tipoDeStat));
+    li.setAttribute("id", statId);
+    ul.appendChild(li);
+}
