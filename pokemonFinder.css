@@ -1,15 +1,106 @@
+body {
+    font-family: 'Roboto Mono', monospace;
+    letter-spacing: -1px;
+}
+
 header{
     width: 100%;
     display: flex;
     justify-content: center;
 }
 
-#logo {
-    width: 300px;
+#box-container {
+    background-color: #6e6ef4;
+    position: relative;
+}
+#background-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 10%;
+    object-position: 0;
 }
 
-#box {
+#logo {
+    width: 300px;
+    padding-top: 12px;
+}
+
+#pokemon-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#box1 {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+#box2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#show-pokemon-name-1,#show-pokemon-name-2 {
+    background-color: white;
+    border-radius: 20px;
+    padding: 4px 12px;
+    margin: 0 0 4px;
+}
+#show-pokemon-name-1:empty, #show-pokemon-name-2:empty {
+    padding: 0;
+}
+#show-pokemon-name-1,#show-pokemon-name-2::first-letter {
+    text-transform: capitalize;
+}
+
+#types1, #types2 {
+    width: 110px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    margin: 12px 0;
+    clear: none;
+}
+#types1 p, #types2 p {
+    color: white;
+}
+#types1 p:first-child, #types2 p:first-child {
+    margin: 0;
+}
+#types1 p:nth-child(2), #types2 p:nth-child(2) {
+    margin: 0 0 0 12px;
+}
+#types1 p:nth-child(2):empty, #types2 p:nth-child(2):empty {
+    margin: 0px;
+}
+#types1,#types2 p::first-letter {
+    text-transform: capitalize;
+}
+
+h1 {
+    color: white;
+}
+
+#caja1, #caja2 {
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 20px;
+    border: 0;
+}
+#caja::placeholder {
+    text-align: center;
+}
+
+#btn1, #btn2 {
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+#img-1, #img-2 {
+    border-radius: 12px;
+    background-color: #8C8CFF;
 }
