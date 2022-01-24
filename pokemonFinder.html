@@ -18,29 +18,58 @@
         <!-- <img src="https://st2.depositphotos.com/3213441/12022/v/600/depositphotos_120226446-stock-illustration-pokemon-go-pokeball-seamless-texture.jpg" 
         alt="" id="background-img"> -->
             
-        <div id="pokemon-container">
-            <div id="box1">
-                <h1>Buscar Pokemon</h1>
-                <input type="text" id="caja1" placeholder="Pokemon or ID">
-                <button class="pokemon-finder" id="btn1" >Buscar</button>
-                <img src="" id="img-1" class="pokemon" alt="">
-                <div id="types1" >
-                    <p id="type-pokemon-1-1"></p>
-                    <p id="type-pokemon-1-2"></p>
+        <div id="pokemons-container">
+            <div id="containers" >
+                <div id="box1">
+                    <h1>Buscar Pokemon</h1>
+                    <input type="text" id="caja1" placeholder="Pokemon or ID">
+                    <button class="pokemon-finder" id="btn1" >Buscar</button>
+                    <div id="pokemon-1">
+                        <img src="" id="img-1" class="pokemon" alt="">
+                        <ul id="stats-1">
+                            <li id="stat1-hp" ></li>
+                            <li id="stat1-atq" ></li>
+                            <li id="stat1-sAtq" ></li>
+                            <li id="stat1-def" ></li>
+                            <li id="stat1-sDef" ></li>
+                            <li id="stat1-spd" ></li>
+                        </ul>
+                    </div>
+                    <div id="types1" >
+                        <p id="type-pokemon-1-1"></p>
+                        <p id="type-pokemon-1-2"></p>
+                    </div>
+                    <p class="pokemon-name" id="show-pokemon-name-1"></p>
                 </div>
-                <p class="pokemon-name" id="show-pokemon-name-1"></p>
             </div>
-            <div id="box2">
-                <h1>Buscar Pokemon</h1>
-                <input type="text" id="caja2" placeholder="Pokemon or ID">
-                <button class="pokemon-finder" id="btn2" >Buscar</button>
-                <img src="" id="img-2" class="pokemon" alt="">
-                <div id="types2" >
-                    <p id="type-pokemon-2-1"></p>
-                    <p id="type-pokemon-2-2"></p>
+
+            <img src="./Imagenes/1vs.png" 
+            alt="" id="vs-img">
+
+            <div id="containers" >
+                <div id="box2">
+                    <h1>Buscar Pokemon</h1>
+                    <input type="text" id="caja2" placeholder="Pokemon or ID">
+                    <button class="pokemon-finder" id="btn2" >Buscar</button>
+                    <div id="pokemon-2">
+                        <ul id="stats-2">
+                            <li id="stat2-hp" ></li>
+                            <li id="stat2-atq" ></li>
+                            <li id="stat2-sAtq" ></li>
+                            <li id="stat2-def" ></li>
+                            <li id="stat2-sDef" ></li>
+                            <li id="stat2-spd" ></li>
+                        </ul>
+                        <img src="" id="img-2" class="pokemon" alt="">
+                    </div>
+                    <div id="types2" >
+                        <p id="type-pokemon-2-1"></p>
+                        <p id="type-pokemon-2-2"></p>
+                    </div>
+                    <p class="pokemon-name" id="show-pokemon-name-2"></p>
                 </div>
-                <p class="pokemon-name" id="show-pokemon-name-2"></p>
             </div>
+            
         </div>
         
     </div>

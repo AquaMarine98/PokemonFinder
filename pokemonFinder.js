@@ -8,6 +8,13 @@ button.addEventListener("click", () => {
     let img = document.getElementById("img-1");
     let type1 = document.getElementById("type-pokemon-1-1");
     let type2 = document.getElementById("type-pokemon-1-2");
+    
+    let hp1 = document.getElementById("stat1-hp")
+    let atq1 = document.getElementById("stat1-atq")
+    let sAtq1 = document.getElementById("stat1-sAtq")
+    let def1 = document.getElementById("stat1-def")
+    let sDef1 = document.getElementById("stat1-sDef")
+    let spd = document.getElementById("stat1-spd")
 
     xhttp.open("GET", `https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}/`);
     xhttp.send();
@@ -27,6 +34,13 @@ button.addEventListener("click", () => {
                 type1.textContent = dataPokemon.types[0].type.name;
                 type2.textContent = null;
             }
+
+            hp1.textContent = `Hp: ${dataPokemon.stats[0].base_stat}`;
+            atq1.textContent = `Atq: ${dataPokemon.stats[1].base_stat}`;
+            sAtq1.textContent = `S.Atq: ${dataPokemon.stats[2].base_stat}`;
+            def1.textContent = `Def: ${dataPokemon.stats[3].base_stat}`;
+            sDef1.textContent = `S.Def: ${dataPokemon.stats[4].base_stat}`;
+            spd.textContent = `Spd: ${dataPokemon.stats[5].base_stat}`;
         }
     }
 })
@@ -42,6 +56,13 @@ button2.addEventListener("click", () => {
     let type1 = document.getElementById("type-pokemon-2-1");
     let type2 = document.getElementById("type-pokemon-2-2");
 
+    let hp1 = document.getElementById("stat2-hp")
+    let atq1 = document.getElementById("stat2-atq")
+    let sAtq1 = document.getElementById("stat2-sAtq")
+    let def1 = document.getElementById("stat2-def")
+    let sDef1 = document.getElementById("stat2-sDef")
+    let spd = document.getElementById("stat2-spd")
+
     xhttp.open("GET", `https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}/`);
     xhttp.send();
 
@@ -60,6 +81,13 @@ button2.addEventListener("click", () => {
                 type1.textContent = dataPokemon.types[0].type.name;
                 type2.textContent = null;
             }
+
+            hp1.textContent = `Hp: ${dataPokemon.stats[0].base_stat}`;
+            atq1.textContent = `Atq: ${dataPokemon.stats[1].base_stat}`;
+            sAtq1.textContent = `S.Atq: ${dataPokemon.stats[2].base_stat}`;
+            def1.textContent = `Def: ${dataPokemon.stats[3].base_stat}`;
+            sDef1.textContent = `S.Def: ${dataPokemon.stats[4].base_stat}`;
+            spd.textContent = `Spd: ${dataPokemon.stats[5].base_stat}`;
         }
     }
 })
