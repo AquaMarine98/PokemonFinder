@@ -5,25 +5,43 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./pokemonFinder.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap" rel="stylesheet">
-
-    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/640px-Pok%C3%A9_Ball_icon.svg.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/b08a952b0a.js" crossorigin="anonymous"></script>
+    
+    <title>Pokemon Finder</title>
 </head>
+
 <body>
     <div id="box-container">
         <header>
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/2560px-International_Pok%C3%A9mon_logo.svg.png"
             alt="" id="logo">
         </header>
-        <!-- <img src="https://st2.depositphotos.com/3213441/12022/v/600/depositphotos_120226446-stock-illustration-pokemon-go-pokeball-seamless-texture.jpg" 
-        alt="" id="background-img"> -->
-            
+
         <div id="pokemons-container">
             <div id="containers" >
                 <div id="box1">
                     <h1>Buscar Pokemon</h1>
-                    <input type="text" id="caja1" placeholder="Pokemon or ID">
-                    <button class="pokemon-finder" id="btn1" >Buscar</button>
+                    <div id="wrapper">
+                        <div id="search-input">
+                            <input type="text" id="caja1" placeholder="Pokemon or ID">
+                            <div id="autocom-box">
+                                <li>A</li>
+                                <li>B</li>
+                                <li>C</li>
+                                <li>D</li>
+                                <li>E</li>
+                                <li>F</li>
+                            </div>
+                            <div id="icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <button class="pokemon-finder" id="btn1" >Buscar</button> -->
+
                     <div id="pokemon-1">
                         <img src="" id="img-1" class="pokemon" alt="">
                         <ul id="stats-1"></ul>
@@ -62,5 +80,6 @@
 
 
     <script src="./pokemonFinder.js"></script>
+    <script src="./typeTables.js"></script>
 </body>
 </html>

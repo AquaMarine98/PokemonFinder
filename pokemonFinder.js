@@ -1,5 +1,5 @@
 // Pokemon 1
-let button = document.getElementById("btn1");
+/* let button = document.getElementById("btn1");
 
 button.addEventListener("click", () => {
     let xhttp = new XMLHttpRequest();
@@ -28,6 +28,10 @@ button.addEventListener("click", () => {
                 type2.textContent = null;
             }
 
+            changeBackground(type1);
+            changeBackground(type2);
+            console.log(type2);
+
             while (root.firstChild) {
                 root.removeChild(root.firstChild);
             }
@@ -48,7 +52,7 @@ function function1(tipoDeStat, statId) {
     li.appendChild(document.createTextNode(tipoDeStat));
     li.setAttribute("id", statId);
     ul.appendChild(li);
-}
+} */
 
 // Pokemon 2
 let button2 = document.getElementById("btn2");
@@ -79,6 +83,9 @@ button2.addEventListener("click", () => {
                 type1.textContent = dataPokemon.types[0].type.name;
                 type2.textContent = null;
             }
+
+            changeBackground(type1);
+            changeBackground(type2);
 
             while (root.firstChild) {
                 root.removeChild(root.firstChild);
