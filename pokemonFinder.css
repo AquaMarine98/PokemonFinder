@@ -2,7 +2,7 @@ body {
     font-family: 'Dongle', sans-serif;
     padding: 0 20px;
     margin: 0;
-    height: 550px;
+    height: 700px;
 }
 
 header{
@@ -38,12 +38,14 @@ header{
     flex-direction: row;
     align-items: center;
     height: 100%;
+    padding-top: 40px;
 }
 
 #box1, #box2 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 #vs-img {
     width: 100px;
@@ -51,22 +53,24 @@ header{
     align-self: center;
 }
 
-#wrapper {
+#wrapper, #wrapper-2 {
     max-width: 450px;
 }
-#wrapper #search-input {
-    position: relative;
+#wrapper #search-input, #wrapper-2 #search-input-2 {
+    position: absolute;
     background-color: white;
     border-radius: 8px;
     padding: 0;
     box-shadow: 0px 1px 5px 3px rgb(0, 0, 0, 0.1);
+    width: 100%;
+    left: 0;
 }
 #caja1, #caja2 {
     width: 100%;
-    height: 24px;
+    height: 32px;
     outline: none;
     border: none;
-    border-radius: 8px 8px 0 0;
+    border-radius: 8px;
     padding: 8px 20px 4px 4px;
     font-size: 18px;
     box-shadow: 0px 1px 5px rgba(0, 0, 0, .1);
@@ -75,23 +79,35 @@ header{
 #caja::placeholder {
     text-align: center;
 }
-#autocom-box {
-    padding: 10px 8px;
+
+#autocom-box, #autocon-box-2 {
+    padding: 0;
     max-height: 280px;
     overflow-y: auto;
+    opacity: 0;
+    pointer-events: none;
 }
-#autocom-box li {
+#search-input.active #autocom-box, #search-input-2.active #autocom-box-2 {
+    padding: 10px 8px;
+    opacity: 1;
+    pointer-events: auto;
+}
+#autocom-box li, #autocom-box-2 li {
     list-style: none;
     padding: 2px 8px 0;
     width: 100%;
     cursor: default;
     border-radius: 3px;
     box-sizing: border-box;
+    display: none;
 }
-#autocom-box li:hover {
+#autocom-box li:hover, #autocom-box-2 li:hover {
     background-color: #efefef;
 }
-#icon {
+#search-input.active #autocom-box li, #search-input-2.active #autocom-box-2 li{
+    display: block;
+}
+#icon, #icon2 {
     height: 24px;
     width: 20px;
     line-height: 36px;
@@ -102,6 +118,8 @@ header{
     font-size: 16px;
     color: #4646c8;
     margin-right: 6x;
+    padding-top: 4px;
+    cursor: pointer;
 }
 
 #show-pokemon-name-1,#show-pokemon-name-2 {
@@ -158,16 +176,14 @@ h1 {
     color: white;
 }
 
-#btn1, #btn2 {
-    border-radius: 12px;
-    margin-bottom: 20px;
-}
-
 #img-1, #img-2 {
     border: 2px solid #c6c6ff;
     border-radius: 12px;
     background-color: #8C8CFF;
     object-fit: contain;
+    width: 90px;
+    height: 90px;
+    padding: 6px;
 }
 #img-1[src=""], #img-2[src=""] {
     display: none;

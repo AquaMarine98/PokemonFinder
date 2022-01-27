@@ -1,5 +1,49 @@
 // Pokemon 1
-/* let button = document.getElementById("btn1");
+const searchWrapper = document.getElementById("search-input");
+const caja1 = document.getElementById("caja1");
+const suggBox = document.getElementById("autocom-box");
+// -----------------------------------------------------------
+caja1.onkeyup = (e) => {
+    let userData = e.target.value;
+    let emptyArray = [];
+    if (userData) {
+        emptyArray = pokemons.filter((data) => {
+            return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
+        })
+        emptyArray = emptyArray.map((data) => {
+            return data = '<li>' + data + '</li>';
+        })
+        searchWrapper.classList.add('active');
+        showSuggestions(emptyArray);
+        let allList = suggBox.querySelectorAll("li");
+        for (let i = 0; i < allList.length; i++) {
+            allList[i].setAttribute("onclick", "select(this)"); 
+        }
+    } else {
+        searchWrapper.classList.remove('active');
+    }
+}
+
+function select (element) {
+    let selectUserData = element.textContent;
+    caja1.value = selectUserData;
+
+    searchWrapper.classList.remove('active');
+}
+
+function showSuggestions(list) {
+    let listData;
+    if (!list.length) {
+        userValue = caja1.value;
+        listData = '<li>' + userValue + '<li>';
+    } else {
+        listData = list.join('');
+    }
+    suggBox.innerHTML = listData;
+}
+
+
+let button = document.getElementById("icon");
 
 button.addEventListener("click", () => {
     let xhttp = new XMLHttpRequest();
@@ -10,7 +54,7 @@ button.addEventListener("click", () => {
     let type2 = document.getElementById("type-pokemon-1-2");
     let root = document.getElementById("stats-1");
 
-    xhttp.open("GET", `https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}/`);
+    xhttp.open("GET", `https://pokeapi.co/api/v2/pokemon/${pokemonName.replace(/[\s.]+/g, '-').toLowerCase()}/`);
     xhttp.send();
 
     xhttp.onreadystatechange = function () {
@@ -52,10 +96,53 @@ function function1(tipoDeStat, statId) {
     li.appendChild(document.createTextNode(tipoDeStat));
     li.setAttribute("id", statId);
     ul.appendChild(li);
-} */
+}
 
 // Pokemon 2
-let button2 = document.getElementById("btn2");
+const searchWrapper2 = document.getElementById("search-input-2");
+const caja2 = document.getElementById("caja2");
+const suggBox2 = document.getElementById("autocom-box-2");
+// -----------------------------------------------------------
+caja2.onkeyup = (e) => {
+    let userData = e.target.value;
+    let emptyArray = [];
+    if (userData) {
+        emptyArray = pokemons.filter((data) => {
+            return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
+        })
+        emptyArray = emptyArray.map((data) => {
+            return data = '<li>' + data + '</li>';
+        })
+        searchWrapper2.classList.add('active');
+        showSuggestions2(emptyArray);
+        let allList = suggBox2.querySelectorAll("li");
+        for (let i = 0; i < allList.length; i++) {
+            allList[i].setAttribute("onclick", "select2(this)"); 
+        }
+    } else {
+        searchWrapper2.classList.remove('active');
+    }
+}
+
+function select2 (element) {
+    let selectUserData = element.textContent;
+    caja2.value = selectUserData;
+
+    searchWrapper2.classList.remove('active');
+}
+
+function showSuggestions2(list) {
+    let listData;
+    if (!list.length) {
+        userValue = caja2.value;
+        listData = '<li>' + userValue + '<li>';
+    } else {
+        listData = list.join('');
+    }
+    suggBox2.innerHTML = listData;
+}
+
+let button2 = document.getElementById("icon2");
 
 button2.addEventListener("click", () => {
     let xhttp = new XMLHttpRequest();
@@ -66,12 +153,11 @@ button2.addEventListener("click", () => {
     let type2 = document.getElementById("type-pokemon-2-2");
     let root = document.getElementById("stats-2");
 
-    xhttp.open("GET", `https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}/`);
+    xhttp.open("GET", `https://pokeapi.co/api/v2/pokemon/${pokemonName.replace(/[\s.]+/g, '-').toLowerCase()}/`);
     xhttp.send();
 
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(JSON.parse(this.responseText))
             let dataPokemon = JSON.parse(this.responseText);
             img.setAttribute("src", dataPokemon.sprites.front_default);
             p.textContent = dataPokemon.name;
