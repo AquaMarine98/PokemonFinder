@@ -1,3 +1,7 @@
+:root {
+    --small-line: 12px;
+}
+
 body {
     font-family: 'Dongle', sans-serif;
     padding: 0 20px;
@@ -14,7 +18,7 @@ header{
 #box-container {
     height: 100%;
     width: 100%;
-    background-color: #6e6ef488;
+    background-color: orange;
 }
 
 #logo {
@@ -28,7 +32,7 @@ header{
     flex-direction: row;
     justify-content: space-between;
     margin: 0 10em 0;
-    align-items: center;
+    align-items: flex-start;
     height: 80%;
     box-sizing: border-box;
 }
@@ -37,6 +41,8 @@ header{
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
+    width: 100%;
     height: 100%;
     padding-top: 40px;
 }
@@ -124,45 +130,34 @@ header{
     cursor: pointer;
 }
 
-#show-pokemon-name-1,#show-pokemon-name-2 {
-    background-color: white;
-    border: 2px solid black;
-    border-radius: 20px;
-    padding: 4px 12px;
-    margin: 0 0 4px;
-    color: black;
-    width: 75px;
-    text-align: center;
-}
-
 #types1, #types2 {
     height: 25px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     margin: 12px 0;
     clear: none;
     width: 100%;
 }
-#types1 p:first-child, #types2 p:first-child {
+#types1 h1:first-child, #types2 h1:first-child {
     margin: 0;
 }
-#types1 p:nth-child(2), #types2 p:nth-child(2) {
+#types1 h1:nth-child(2), #types2 h1:nth-child(2) {
     margin: 0 0 0 12px;
 }
-#types1 p:nth-child(2):empty, #types2 p:nth-child(2):empty {
+#types1 h1:nth-child(2):empty, #types2 h1:nth-child(2):empty {
     margin: 0px;
 }
-#types1,#types2 p::first-letter {
+#types1,#types2 h1::first-letter {
     text-transform: capitalize;
 }
 
 #type-pokemon-1-1, #type-pokemon-1-2, #type-pokemon-2-1, #type-pokemon-2-2 {
     text-align: center;
-    border: 1px solid black;
-    border-radius: 12px;
-    padding: 2px 12px;
-    width: 70px;
+    border: 0.1px solid whitesmoke;
+    border-radius: 50%;
+    width: 50%;
     color: white;
+    font-size: 16px;
 }
 #type-pokemon-1-1:empty, #type-pokemon-1-2:empty, #type-pokemon-2-1:empty, #type-pokemon-2-2:empty {
     display: none;
@@ -174,21 +169,14 @@ h1 {
 
 #img-1, #img-2 {
     border: 2px solid #c6c6ff;
-    border-radius: 12px;
+    border-radius: var(--small-line);
     background-color: #8C8CFF;
     object-fit: contain;
-    width: 90px;
-    height: 90px;
+    width: 40%;
     padding: 6px;
 }
 #img-1[src=""], #img-2[src=""] {
     display: none;
-}
-#img-1 {
-    margin-right: 20px;
-}
-#img-2 {
-    margin-left: 20px;
 }
 
 #stats-1:empty, #stats-2:empty {
@@ -200,9 +188,9 @@ h1 {
     text-align: center;
     font-weight: bold;
     border: 2px solid black;
-    padding: 4px 8px;
-    border-radius: 12px;
+    padding: 6px;
+    border-radius: var(--small-line);
     background-color: white;
-    height: 9em;
-    width: 5em;
+    height: 100%;
+    width: 40%;
 }
