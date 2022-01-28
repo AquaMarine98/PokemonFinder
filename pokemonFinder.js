@@ -1,3 +1,11 @@
+// Funciona para Pokemon 1 y 2
+function pokemonsStats(tipoDeStat, statId, stat) {
+    var ul = document.getElementById(`stats-${statId}`);
+    var li = document.createElement("li");
+    li.appendChild(document.createTextNode(tipoDeStat));
+    li.setAttribute("id", `stat${statId}-${stat}`);
+    ul.appendChild(li);
+}
 // Pokemon 1
 const searchWrapper = document.getElementById("search-input");
 const caja1 = document.getElementById("caja1");
@@ -17,14 +25,14 @@ caja1.onkeyup = (e) => {
         showSuggestions(emptyArray);
         let allList = suggBox.querySelectorAll("li");
         for (let i = 0; i < allList.length; i++) {
-            allList[i].setAttribute("onclick", "select(this)"); 
+            allList[i].setAttribute("onclick", "select(this)");
         }
     } else {
         searchWrapper.classList.remove('active');
     }
 }
 
-function select (element) {
+function select(element) {
     let selectUserData = element.textContent;
     caja1.value = selectUserData;
 
@@ -46,7 +54,6 @@ function showSuggestions(list) {
 let button = document.getElementById("icon");
 
 button.addEventListener("click", () => {
-    let xhttp = new XMLHttpRequest();
     let pokemonName = document.getElementById("caja1").value;
     let p = document.getElementById("show-pokemon-name-1");
     let img = document.getElementById("img-1");
@@ -54,49 +61,39 @@ button.addEventListener("click", () => {
     let type2 = document.getElementById("type-pokemon-1-2");
     let root = document.getElementById("stats-1");
 
-    xhttp.open("GET", `https://pokeapi.co/api/v2/pokemon/${pokemonName.replace(/[\s.]+/g, '-').toLowerCase()}/`);
-    xhttp.send();
+    function buscarPokemon() {
+        fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName.replace(/[\s.]+/g, '-').toLowerCase()}/`)
+            .then((response) => response.json())
+            .then((data) => { pokemon(data) });
+    }
+    buscarPokemon();
+    function pokemon(dataPokemon) {
+        img.setAttribute("src", dataPokemon.sprites.front_default);
+        p.textContent = dataPokemon.name;
 
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            console.log(JSON.parse(this.responseText))
-            let dataPokemon = JSON.parse(this.responseText);
-            img.setAttribute("src", dataPokemon.sprites.front_default);
-            p.textContent = dataPokemon.name;
-
-            if (dataPokemon.types.length == 2) {
-                type1.textContent = dataPokemon.types[0].type.name;
-                type2.textContent = dataPokemon.types[1].type.name;
-            } else {
-                type1.textContent = dataPokemon.types[0].type.name;
-                type2.textContent = null;
-            }
-
-            changeBackground(type1);
-            changeBackground(type2);
-            console.log(type2);
-
-            while (root.firstChild) {
-                root.removeChild(root.firstChild);
-            }
-
-            function1(`Hp: ${dataPokemon.stats[0].base_stat}`, "stat1-hp");
-            function1(`Atq: ${dataPokemon.stats[1].base_stat}`, "stat1-atq");
-            function1(`S.Atq: ${dataPokemon.stats[2].base_stat}`, "stat1-sAtq");
-            function1(`Def: ${dataPokemon.stats[3].base_stat}`, "stat1-def");
-            function1(`S.Def: ${dataPokemon.stats[4].base_stat}`, "stat1-sDef");
-            function1(`Spd: ${dataPokemon.stats[5].base_stat}`, "stat1-spd");
+        if (dataPokemon.types.length == 2) {
+            type1.textContent = dataPokemon.types[0].type.name;
+            type2.textContent = dataPokemon.types[1].type.name;
+        } else {
+            type1.textContent = dataPokemon.types[0].type.name;
+            type2.textContent = null;
         }
+
+        pokemonsStats(`Hp: ${dataPokemon.stats[0].base_stat}`, 1, 'hp');
+        pokemonsStats(`Atq: ${dataPokemon.stats[1].base_stat}`, 1, 'atq');
+        pokemonsStats(`S.Atq: ${dataPokemon.stats[2].base_stat}`, 1, 'sAtq');
+        pokemonsStats(`Def: ${dataPokemon.stats[3].base_stat}`, 1, 'def');
+        pokemonsStats(`S.Def: ${dataPokemon.stats[4].base_stat}`, 1, 'sDef');
+        pokemonsStats(`Spd: ${dataPokemon.stats[5].base_stat}`, 1, 'spd');
+
+        changeBackground(type1);
+        changeBackground(type2);
+    }
+
+    while (root.firstChild) {
+        root.removeChild(root.firstChild);
     }
 })
-
-function function1(tipoDeStat, statId) {
-    var ul = document.getElementById("stats-1");
-    var li = document.createElement("li");
-    li.appendChild(document.createTextNode(tipoDeStat));
-    li.setAttribute("id", statId);
-    ul.appendChild(li);
-}
 
 // Pokemon 2
 const searchWrapper2 = document.getElementById("search-input-2");
@@ -117,14 +114,14 @@ caja2.onkeyup = (e) => {
         showSuggestions2(emptyArray);
         let allList = suggBox2.querySelectorAll("li");
         for (let i = 0; i < allList.length; i++) {
-            allList[i].setAttribute("onclick", "select2(this)"); 
+            allList[i].setAttribute("onclick", "select2(this)");
         }
     } else {
         searchWrapper2.classList.remove('active');
     }
 }
 
-function select2 (element) {
+function select2(element) {
     let selectUserData = element.textContent;
     caja2.value = selectUserData;
 
@@ -145,7 +142,6 @@ function showSuggestions2(list) {
 let button2 = document.getElementById("icon2");
 
 button2.addEventListener("click", () => {
-    let xhttp = new XMLHttpRequest();
     let pokemonName = document.getElementById("caja2").value;
     let p = document.getElementById("show-pokemon-name-2");
     let img = document.getElementById("img-2");
@@ -153,44 +149,36 @@ button2.addEventListener("click", () => {
     let type2 = document.getElementById("type-pokemon-2-2");
     let root = document.getElementById("stats-2");
 
-    xhttp.open("GET", `https://pokeapi.co/api/v2/pokemon/${pokemonName.replace(/[\s.]+/g, '-').toLowerCase()}/`);
-    xhttp.send();
+    function buscarPokemon() {
+        fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName.replace(/[\s.]+/g, '-').toLowerCase()}/`)
+            .then((response) => response.json())
+            .then((data) => { pokemon(data) });
+    }
+    buscarPokemon();
+    function pokemon(dataPokemon) {
+        img.setAttribute("src", dataPokemon.sprites.front_default);
+        p.textContent = dataPokemon.name;
 
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            let dataPokemon = JSON.parse(this.responseText);
-            img.setAttribute("src", dataPokemon.sprites.front_default);
-            p.textContent = dataPokemon.name;
-
-            if (dataPokemon.types.length == 2) {
-                type1.textContent = dataPokemon.types[0].type.name;
-                type2.textContent = dataPokemon.types[1].type.name;
-            } else {
-                type1.textContent = dataPokemon.types[0].type.name;
-                type2.textContent = null;
-            }
-
-            changeBackground(type1);
-            changeBackground(type2);
-
-            while (root.firstChild) {
-                root.removeChild(root.firstChild);
-            }
-
-            function2(`Hp: ${dataPokemon.stats[0].base_stat}`, "stat2-hp");
-            function2(`Atq: ${dataPokemon.stats[1].base_stat}`, "stat2-atq");
-            function2(`S.Atq: ${dataPokemon.stats[2].base_stat}`, "stat2-sAtq");
-            function2(`Def: ${dataPokemon.stats[3].base_stat}`, "stat2-def");
-            function2(`S.Def: ${dataPokemon.stats[4].base_stat}`, "stat2-sDef");
-            function2(`Spd: ${dataPokemon.stats[5].base_stat}`, "stat2-spd");
+        if (dataPokemon.types.length == 2) {
+            type1.textContent = dataPokemon.types[0].type.name;
+            type2.textContent = dataPokemon.types[1].type.name;
+        } else {
+            type1.textContent = dataPokemon.types[0].type.name;
+            type2.textContent = null;
         }
+
+        pokemonsStats(`Hp: ${dataPokemon.stats[0].base_stat}`, 2, "hp");
+        pokemonsStats(`Atq: ${dataPokemon.stats[1].base_stat}`, 2, "atq");
+        pokemonsStats(`S.Atq: ${dataPokemon.stats[2].base_stat}`, 2, "sAtq");
+        pokemonsStats(`Def: ${dataPokemon.stats[3].base_stat}`, 2, "def");
+        pokemonsStats(`S.Def: ${dataPokemon.stats[4].base_stat}`, 2, "sDef");
+        pokemonsStats(`Spd: ${dataPokemon.stats[5].base_stat}`, 2, "spd");
+
+        changeBackground(type1);
+    changeBackground(type2);
+    }
+
+    while (root.firstChild) {
+        root.removeChild(root.firstChild);
     }
 })
-
-function function2(tipoDeStat, statId) {
-    var ul = document.getElementById("stats-2");
-    var li = document.createElement("li");
-    li.appendChild(document.createTextNode(tipoDeStat));
-    li.setAttribute("id", statId);
-    ul.appendChild(li);
-}
