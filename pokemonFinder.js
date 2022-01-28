@@ -6,11 +6,16 @@ function pokemonsStats(tipoDeStat, statId, stat) {
     li.setAttribute("id", `stat${statId}-${stat}`);
     ul.appendChild(li);
 }
+function buscarPokemon(pokemonName, myFunction) {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName.replace(/[\s.]+/g, '-').toLowerCase()}/`)
+        .then((response) => response.json())
+        .then((data) => { myFunction(data) });
+}
 // Pokemon 1
 const searchWrapper = document.getElementById("search-input");
 const caja1 = document.getElementById("caja1");
 const suggBox = document.getElementById("autocom-box");
-// -----------------------------------------------------------
+
 caja1.onkeyup = (e) => {
     let userData = e.target.value;
     let emptyArray = [];
@@ -50,26 +55,32 @@ function showSuggestions(list) {
     suggBox.innerHTML = listData;
 }
 
-
 let button = document.getElementById("icon");
+let img1 = document.getElementById("img-1");
+let name1;
+let img1_default, img1_shiny;
+// Cambiar entre sprite default y shiny
+img1.addEventListener("click", () => {
 
+    if (img1.src == img1_default) {
+        img1.setAttribute("src", img1_shiny);
+    } else {
+        img1.setAttribute("src", img1_default);
+    }
+})
+// Modificar la caja de los pokemons con datos
 button.addEventListener("click", () => {
     let pokemonName = document.getElementById("caja1").value;
-    let p = document.getElementById("show-pokemon-name-1");
-    let img = document.getElementById("img-1");
     let type1 = document.getElementById("type-pokemon-1-1");
     let type2 = document.getElementById("type-pokemon-1-2");
     let root = document.getElementById("stats-1");
 
-    function buscarPokemon() {
-        fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName.replace(/[\s.]+/g, '-').toLowerCase()}/`)
-            .then((response) => response.json())
-            .then((data) => { pokemon(data) });
-    }
-    buscarPokemon();
+    buscarPokemon(pokemonName, pokemon);
     function pokemon(dataPokemon) {
-        img.setAttribute("src", dataPokemon.sprites.front_default);
-        p.textContent = dataPokemon.name;
+        img1.setAttribute("src", dataPokemon.sprites.front_default);
+
+        img1_default = dataPokemon.sprites.front_default;
+        img1_shiny = dataPokemon.sprites.front_shiny;
 
         if (dataPokemon.types.length == 2) {
             type1.textContent = dataPokemon.types[0].type.name;
@@ -90,16 +101,20 @@ button.addEventListener("click", () => {
         changeBackground(type2);
     }
 
+    name1 = pokemonName;
+
     while (root.firstChild) {
         root.removeChild(root.firstChild);
     }
 })
 
+// --------------------------------------------------------------
+
 // Pokemon 2
 const searchWrapper2 = document.getElementById("search-input-2");
 const caja2 = document.getElementById("caja2");
 const suggBox2 = document.getElementById("autocom-box-2");
-// -----------------------------------------------------------
+
 caja2.onkeyup = (e) => {
     let userData = e.target.value;
     let emptyArray = [];
@@ -140,24 +155,32 @@ function showSuggestions2(list) {
 }
 
 let button2 = document.getElementById("icon2");
+let img2 = document.getElementById("img-2");
+let img2_default, img2_shiny;
+let name2;
+// Cambiar entre sprite default y shiny
+img2.addEventListener("click", () => {
 
+    if (img2.src == img2_default) {
+        img2.setAttribute("src", img2_shiny);
+    } else {
+        img2.setAttribute("src", img2_default);
+    }
+
+})
+// Modificar la caja de los pokemons con datos
 button2.addEventListener("click", () => {
     let pokemonName = document.getElementById("caja2").value;
-    let p = document.getElementById("show-pokemon-name-2");
-    let img = document.getElementById("img-2");
     let type1 = document.getElementById("type-pokemon-2-1");
     let type2 = document.getElementById("type-pokemon-2-2");
     let root = document.getElementById("stats-2");
-
-    function buscarPokemon() {
-        fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName.replace(/[\s.]+/g, '-').toLowerCase()}/`)
-            .then((response) => response.json())
-            .then((data) => { pokemon(data) });
-    }
-    buscarPokemon();
+    // Usar la primera funcion del script para rellenar los datos del pokemon
+    buscarPokemon(pokemonName, pokemon);
     function pokemon(dataPokemon) {
-        img.setAttribute("src", dataPokemon.sprites.front_default);
-        p.textContent = dataPokemon.name;
+        img2.setAttribute("src", dataPokemon.sprites.front_default);
+
+        img2_default = dataPokemon.sprites.front_default;
+        img2_shiny = dataPokemon.sprites.front_shiny;
 
         if (dataPokemon.types.length == 2) {
             type1.textContent = dataPokemon.types[0].type.name;
@@ -175,8 +198,10 @@ button2.addEventListener("click", () => {
         pokemonsStats(`Spd: ${dataPokemon.stats[5].base_stat}`, 2, "spd");
 
         changeBackground(type1);
-    changeBackground(type2);
+        changeBackground(type2);
     }
+
+    name2 = pokemonName;
 
     while (root.firstChild) {
         root.removeChild(root.firstChild);
