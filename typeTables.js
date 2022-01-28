@@ -1,54 +1,54 @@
 function changeBackground(type) {
     if(type.textContent == "normal"){
-        type.style.background = 'rgb(185, 152, 152)';
+        type.style.background = '#A8A878';
     }
     if(type.textContent == "fire"){
-        type.style.background = 'rgb(255, 115, 0)';
+        type.style.background = '#F08030';
     }
     if(type.textContent == "water"){
-        type.style.background = 'rgb(84, 133, 246)';
+        type.style.background = '#6890F0';
     }
     if(type.textContent == "grass"){
-        type.style.background = 'rgb(124, 189, 28)';
+        type.style.background = '#78C850';
     }
     if(type.textContent == "electric"){
-        type.style.background = 'rgb(255, 255, 0)';
+        type.style.background = '#F8D030';
     }
     if(type.textContent == "ice"){
-        type.style.background = 'rgb(183, 235, 255)';
+        type.style.background = '#98D8D8';
     }
     if(type.textContent == "fighting"){
-        type.style.background = 'rgb(160, 2, 2)';
+        type.style.background = '#C03028';
     }
     if(type.textContent == "poison"){
-        type.style.background = 'rgb(128, 0, 128)';
+        type.style.background = '#A040A0';
     }
     if(type.textContent == "ground"){
-        type.style.background = 'rgb(210, 180, 140)';
+        type.style.background = '#E0C068';
     }
     if(type.textContent == "flying"){
-        type.style.background = 'rgb(91, 91, 200)';
+        type.style.background = '#A890F0';
     }
     if(type.textContent == "psychic"){
-        type.style.background = 'rgb(216, 112, 147)';
+        type.style.background = '#F85888';
     }
     if(type.textContent == "bug"){
-        type.style.background = 'rgb(88, 131, 68)';
+        type.style.background = '#A8B820';
     }
     if(type.textContent == "rock"){
-        type.style.background = 'rgb(119, 66, 22)';
+        type.style.background = '#B8A038';
     }
     if(type.textContent == "ghost"){
-        type.style.background = 'rgb(32, 0, 68)';
+        type.style.background = '#705898';
     }
     if(type.textContent == "dragon"){
-        type.style.background = 'rgb(15, 71, 124)';
+        type.style.background = '#7038F8';
     }
     if(type.textContent == "dark"){
-        type.style.background = 'rgb(41, 41, 41)';
+        type.style.background = '#705848';
     }
     if(type.textContent == "steel"){
-        type.style.background = 'rgb(192, 192, 192)';
+        type.style.background = '#B8B8D0';
     }
     if(type.textContent == "fairy"){
         type.style.background = 'rgb(238, 130, 238)';
