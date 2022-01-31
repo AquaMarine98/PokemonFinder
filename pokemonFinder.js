@@ -24,6 +24,7 @@ const searchWrapper = document.getElementById("search-input");
 const caja1 = document.getElementById("caja1");
 const suggBox = document.getElementById("autocom-box");
 const card = document.getElementById("card__inner");
+const pokemon1 = document.getElementById("pokemon-1");
 
 
 
@@ -53,7 +54,7 @@ function select(element) {
     caja1.value = selectUserData;
 
     searchWrapper.classList.remove('active');
-    card.classList.remove('is-empty');
+    pokemon1.classList.add('is-empty');
 
     let pokemonName = document.getElementById("caja1").value;
     let type1 = document.getElementById("type-pokemon-1-1");
@@ -62,6 +63,8 @@ function select(element) {
 
     buscarPokemon(pokemonName, pokemon);
     function pokemon(dataPokemon) {
+        card.classList.remove('is-flipped');
+        pokemon1.classList.remove('is-empty');
         img1_default.setAttribute("src", dataPokemon.sprites.front_default);
         img1_shiny.setAttribute("src", dataPokemon.sprites.front_shiny);
 
@@ -112,7 +115,7 @@ card.addEventListener("click", () => {
 })
 // Modificar la caja de los pokemons con datos
 button.addEventListener("click", () => {
-    card.classList.remove('is-empty');
+    pokemon1.classList.add('is-empty');
 
     let pokemonName = document.getElementById("caja1").value;
     let type1 = document.getElementById("type-pokemon-1-1");
@@ -123,6 +126,8 @@ button.addEventListener("click", () => {
     function pokemon(dataPokemon) {
         img1_default.setAttribute("src", dataPokemon.sprites.front_default);
         img1_shiny.setAttribute("src", dataPokemon.sprites.front_shiny);
+        card.classList.remove('is-flipped');
+        pokemon1.classList.remove('is-empty');
 
         if (dataPokemon.types.length == 2) {
             type1.textContent = dataPokemon.types[0].type.name;
@@ -156,6 +161,7 @@ const searchWrapper2 = document.getElementById("search-input-2");
 const caja2 = document.getElementById("caja2");
 const suggBox2 = document.getElementById("autocom-box-2");
 const card2 = document.getElementById("card__inner2");
+const pokemon2 = document.getElementById("pokemon-2");
 
 caja2.onkeyup = (e) => {
     let userData = e.target.value;
@@ -184,6 +190,7 @@ function select2(element) {
 
     searchWrapper2.classList.remove('active');
     card2.classList.remove('is-empty');
+    pokemon2.classList.add('is-empty');
 
     let pokemonName = document.getElementById("caja2").value;
     let type1 = document.getElementById("type-pokemon-2-1");
@@ -193,6 +200,7 @@ function select2(element) {
     buscarPokemon(pokemonName, pokemon);
     function pokemon(dataPokemon) {
         card2.classList.remove('is-flipped');
+        pokemon2.classList.remove('is-empty');
         img2_default.setAttribute("src", dataPokemon.sprites.front_default);
         img2_shiny.setAttribute("src", dataPokemon.sprites.front_shiny);
 
@@ -245,6 +253,7 @@ card2.addEventListener("click", () => {
 // Modificar la caja de los pokemons con datos
 button2.addEventListener("click", () => {
     card2.classList.remove('is-empty');
+    pokemon2.classList.add('is-empty');
 
     let pokemonName = document.getElementById("caja2").value;
     let type1 = document.getElementById("type-pokemon-2-1");
@@ -254,6 +263,7 @@ button2.addEventListener("click", () => {
     buscarPokemon(pokemonName, pokemon);
     function pokemon(dataPokemon) {
         card2.classList.remove('is-flipped');
+        pokemon2.classList.remove('is-empty');
         img2_default.setAttribute("src", dataPokemon.sprites.front_default);
         img2_shiny.setAttribute("src", dataPokemon.sprites.front_shiny);
 
