@@ -7,6 +7,7 @@ function pokemonsStats(tipoDeStat, statId, stat) {
     ul.appendChild(li);
 }
 function buscarPokemon(pokemonName, myFunction) {
+
     if (pokemonName.toLowerCase() == "nidoran♀") {
         pokemonName = pokemonName.replace(/[♀]+/g, '-f').toLowerCase();
     }
@@ -17,17 +18,28 @@ function buscarPokemon(pokemonName, myFunction) {
     }
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}/`)
         .then((response) => response.json())
-        .then((data) => { myFunction(data); console.log("Funciona"); });
+        .then((data) => myFunction(data));
 }
+
+$(document).click(function () {
+    var isHovered = $('#caja1').filter(function() {
+        return $(this).is(":hover");
+    });
+    let allList = suggBox.querySelectorAll("li");
+    if ( isHovered.length > 0 && allList.length >=1) {
+        console.log(allList);
+        searchWrapper.classList.add('active');
+      } else { 
+        searchWrapper.classList.remove('active');
+      }
+})
 // Pokemon 1
 const searchWrapper = document.getElementById("search-input");
 const caja1 = document.getElementById("caja1");
 const suggBox = document.getElementById("autocom-box");
 const card = document.getElementById("card__inner");
 const pokemon1 = document.getElementById("pokemon-1");
-
-
-
+// Sugestion box
 caja1.onkeyup = (e) => {
     let userData = e.target.value;
     let emptyArray = [];
@@ -38,17 +50,27 @@ caja1.onkeyup = (e) => {
         emptyArray = emptyArray.map((data) => {
             return data = '<li>' + data + '</li>';
         })
-        searchWrapper.classList.add('active');
+
         showSuggestions(emptyArray);
+
         let allList = suggBox.querySelectorAll("li");
+
         for (let i = 0; i < allList.length; i++) {
             allList[i].setAttribute("onclick", "select(this)");
         }
-    } else {
+
+        searchWrapper.classList.add('active');
+        if (emptyArray.length <= 0) {
+            searchWrapper.classList.remove('active');
+        }
+    }
+    if (caja1.value == '') {
         searchWrapper.classList.remove('active');
+        while (suggBox.firstChild) {
+            suggBox.removeChild(suggBox.firstChild);
+        }
     }
 }
-
 function select(element) {
     let selectUserData = element.textContent;
     caja1.value = selectUserData;
@@ -93,11 +115,12 @@ function select(element) {
         root.removeChild(root.firstChild);
     }
 }
-
 function showSuggestions(list) {
     let listData;
     if (!list.length) {
         userValue = caja1.value;
+        console.log(userValue);
+        console.log(listData);
         listData = '<li>' + userValue + '<li>';
     } else {
         listData = list.join('');
@@ -114,7 +137,7 @@ card.addEventListener("click", () => {
     card.classList.toggle('is-flipped');
 })
 // Modificar la caja de los pokemons con datos
-button.addEventListener("click", () => {
+/* button.addEventListener("click", () => {
     pokemon1.classList.add('is-empty');
 
     let pokemonName = document.getElementById("caja1").value;
@@ -153,7 +176,7 @@ button.addEventListener("click", () => {
     while (root.firstChild) {
         root.removeChild(root.firstChild);
     }
-})
+}) */
 // --------------------------------------------------------------
 
 // Pokemon 2
