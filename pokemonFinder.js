@@ -62,6 +62,9 @@ caja1.onkeyup = (e) => {
         searchWrapper.classList.add('active');
         if (emptyArray.length <= 0) {
             searchWrapper.classList.remove('active');
+            while (suggBox.firstChild) {
+                suggBox.removeChild(suggBox.firstChild);
+            }
         }
     }
     if (caja1.value == '') {
@@ -113,6 +116,9 @@ function select(element) {
 
     while (root.firstChild) {
         root.removeChild(root.firstChild);
+    }
+    while (suggBox.firstChild) {
+        suggBox.removeChild(suggBox.firstChild);
     }
 }
 function showSuggestions(list) {
