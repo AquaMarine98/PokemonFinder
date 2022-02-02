@@ -20,18 +20,74 @@ function buscarPokemon(pokemonName, myFunction) {
         .then((response) => response.json())
         .then((data) => myFunction(data));
 }
+function compare () {
+    console.log({pokemon1Json, pokemon2Json})
+    if(pokemon1Json.hp!=0 && pokemon2Json.hp!=0) {
+        if (pokemon1Json.hp > pokemon2Json.hp) {
+            console.log(name1 + " " + pokemon1Json.hp + " is bigger");
+        } else if (pokemon1Json.hp < pokemon2Json.hp) {
+            console.log(name2 + " " + pokemon2Json.hp + " is bigger");
+        } else { console.log("Son iguales"); }
+    }
+    if(pokemon1Json.atq!=0 && pokemon2Json.atq!=0) {
+        if (pokemon1Json.atq > pokemon2Json.atq) {
+            console.log(name1 + " " + pokemon1Json.atq + " is bigger");
+        } else if (pokemon1Json.atq < pokemon2Json.atq) {
+            console.log(name2 + " " + pokemon2Json.atq + " is bigger");
+        } else { console.log("Son iguales"); }
+    }
+    if(pokemon1Json.sAtq!=0 && pokemon2Json.sAtq!=0) {
+        if (pokemon1Json.sAtq > pokemon2Json.sAtq) {
+            console.log(name1 + " " + pokemon1Json.sAtq + " is bigger");
+        } else if (pokemon1Json.sAtq < pokemon2Json.sAtq) {
+            console.log(name2 + " " + pokemon2Json.sAtq + " is bigger");
+        } else { console.log("Son iguales"); }
+    }
+    if(pokemon1Json.def!=0 && pokemon2Json.def!=0) {
+        if (pokemon1Json.def > pokemon2Json.def) {
+            console.log(name1 + " " + pokemon1Json.def + " is bigger");
+        } else if (pokemon1Json.def < pokemon2Json.def) {
+            console.log(name2 + " " + pokemon2Json.def + " is bigger");
+        } else { console.log("Son iguales"); }
+    }
+    if(pokemon1Json.sDef!=0 && pokemon2Json.sDef!=0) {
+        if (pokemon1Json.sDef > pokemon2Json.sDef) {
+            console.log(name1 + " " + pokemon1Json.sDef + " is bigger");
+        } else if (pokemon1Json.sDef < pokemon2Json.sDef) {
+            console.log(name2 + " " + pokemon2Json.sDef + " is bigger");
+        } else { console.log("Son iguales"); }
+    }
+    if(pokemon1Json.vel!=0 && pokemon2Json.vel!=0) {
+        if (pokemon1Json.vel > pokemon2Json.vel) {
+            console.log(name1 + " " + pokemon1Json.vel + " is bigger");
+        } else if (pokemon1Json.vel < pokemon2Json.vel) {
+            console.log(name2 + " " + pokemon2Json.vel + " is bigger");
+        } else { console.log("Son iguales"); }
+    }
+}
 
 $(document).click(function () {
-    var isHovered = $('#caja1').filter(function() {
+    var isHovered = $('#caja1').filter(function () {
+        return $(this).is(":hover");
+    });
+    var isHovered2 = $('#caja2').filter(function () {
         return $(this).is(":hover");
     });
     let allList = suggBox.querySelectorAll("li");
-    if ( isHovered.length > 0 && allList.length >=1) {
+    let allList2 = suggBox2.querySelectorAll("li");
+
+    if (isHovered.length > 0 && allList.length >= 1) {
         console.log(allList);
         searchWrapper.classList.add('active');
-      } else { 
+    } else {
         searchWrapper.classList.remove('active');
-      }
+    }
+    if (isHovered2.length > 0 && allList2.length >= 1) {
+        console.log(allList);
+        searchWrapper2.classList.add('active');
+    } else {
+        searchWrapper2.classList.remove('active');
+    }
 })
 // Pokemon 1
 const searchWrapper = document.getElementById("search-input");
@@ -39,6 +95,18 @@ const caja1 = document.getElementById("caja1");
 const suggBox = document.getElementById("autocom-box");
 const card = document.getElementById("card__inner");
 const pokemon1 = document.getElementById("pokemon-1");
+let button = document.getElementById("icon");
+let img1_default = document.getElementById("pokemon-1-comun");
+let img1_shiny = document.getElementById("pokemon-1-shiny");
+let name1;
+let pokemon1Json = {
+    hp: 0,
+    atq: 0,
+    sAtq: 0,
+    def: 0,
+    sDef: 0,
+    vel: 0,
+};
 // Sugestion box
 caja1.onkeyup = (e) => {
     let userData = e.target.value;
@@ -87,6 +155,7 @@ function select(element) {
     let root = document.getElementById("stats-1");
 
     buscarPokemon(pokemonName, pokemon);
+    // Obtener datos de pokemon 1
     function pokemon(dataPokemon) {
         card.classList.remove('is-flipped');
         pokemon1.classList.remove('is-empty');
@@ -110,6 +179,15 @@ function select(element) {
 
         changeBackground(type1);
         changeBackground(type2);
+
+        pokemon1Json.hp = dataPokemon.stats[0].base_stat;
+        pokemon1Json.atq = dataPokemon.stats[1].base_stat;
+        pokemon1Json.sAtq = dataPokemon.stats[2].base_stat;
+        pokemon1Json.def = dataPokemon.stats[3].base_stat;
+        pokemon1Json.sDef = dataPokemon.stats[4].base_stat;
+        pokemon1Json.vel = dataPokemon.stats[5].base_stat;
+
+        compare();
     }
 
     name1 = pokemonName;
@@ -133,14 +211,11 @@ function showSuggestions(list) {
     }
     suggBox.innerHTML = listData;
 }
-
-let button = document.getElementById("icon");
-let img1_default = document.getElementById("pokemon-1-comun");
-let img1_shiny = document.getElementById("pokemon-1-shiny");
-let name1;
 // Cambiar entre sprite default y shiny
 card.addEventListener("click", () => {
     card.classList.toggle('is-flipped');
+
+    console.log(pokemon1Json);
 })
 // Modificar la caja de los pokemons con datos
 /* button.addEventListener("click", () => {
@@ -191,6 +266,18 @@ const caja2 = document.getElementById("caja2");
 const suggBox2 = document.getElementById("autocom-box-2");
 const card2 = document.getElementById("card__inner2");
 const pokemon2 = document.getElementById("pokemon-2");
+let button2 = document.getElementById("icon2");
+let img2_default = document.getElementById("pokemon-2-comun");
+let img2_shiny = document.getElementById("pokemon-2-shiny");
+let name2;
+let pokemon2Json = {
+    hp: 0,
+    atq: 0,
+    sAtq: 0,
+    def: 0,
+    sDef: 0,
+    vel: 0,
+};
 
 caja2.onkeyup = (e) => {
     let userData = e.target.value;
@@ -202,14 +289,30 @@ caja2.onkeyup = (e) => {
         emptyArray = emptyArray.map((data) => {
             return data = '<li>' + data + '</li>';
         })
-        searchWrapper2.classList.add('active');
+
         showSuggestions2(emptyArray);
+
         let allList = suggBox2.querySelectorAll("li");
+
         for (let i = 0; i < allList.length; i++) {
             allList[i].setAttribute("onclick", "select2(this)");
         }
-    } else {
+
+        searchWrapper2.classList.add('active');
+
+        if (emptyArray.length <= 0) {
+            searchWrapper2.classList.remove('active');
+            while (suggBox2.firstChild) {
+                suggBox2.removeChild(suggBox2.firstChild);
+            }
+        }
+    }
+
+    if (caja2.value == '') {
         searchWrapper2.classList.remove('active');
+        while (suggBox2.firstChild) {
+            suggBox2.removeChild(suggBox2.firstChild);
+        }
     }
 }
 
@@ -250,12 +353,24 @@ function select2(element) {
 
         changeBackground(type1);
         changeBackground(type2);
+
+        pokemon2Json.hp = dataPokemon.stats[0].base_stat;
+        pokemon2Json.atq = dataPokemon.stats[1].base_stat;
+        pokemon2Json.sAtq = dataPokemon.stats[2].base_stat;
+        pokemon2Json.def = dataPokemon.stats[3].base_stat;
+        pokemon2Json.sDef = dataPokemon.stats[4].base_stat;
+        pokemon2Json.vel = dataPokemon.stats[5].base_stat;
+
+        compare();
     }
 
     name2 = pokemonName;
 
     while (root.firstChild) {
         root.removeChild(root.firstChild);
+    }
+    while (suggBox2.firstChild) {
+        suggBox2.removeChild(suggBox2.firstChild);
     }
 }
 
@@ -269,18 +384,14 @@ function showSuggestions2(list) {
     }
     suggBox2.innerHTML = listData;
 }
-
-let button2 = document.getElementById("icon2");
-let img2_default = document.getElementById("pokemon-2-comun");
-let img2_shiny = document.getElementById("pokemon-2-shiny");
-let name2;
 // Cambiar entre sprite default y shiny
 card2.addEventListener("click", () => {
     card2.classList.toggle('is-flipped');
+    console.log(pokemon2Json);
 
 })
 // Modificar la caja de los pokemons con datos
-button2.addEventListener("click", () => {
+/* button2.addEventListener("click", () => {
     card2.classList.remove('is-empty');
     pokemon2.classList.add('is-empty');
 
@@ -320,4 +431,4 @@ button2.addEventListener("click", () => {
     while (root.firstChild) {
         root.removeChild(root.firstChild);
     }
-})
+}) */
