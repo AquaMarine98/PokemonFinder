@@ -1,10 +1,13 @@
 // Funciona para Pokemon 1 y 2
-function pokemonsStats(tipoDeStat, statId, stat) {
-    var ul = document.getElementById(`stats-${statId}`);
-    var li = document.createElement("li");
-    li.appendChild(document.createTextNode(tipoDeStat));
-    li.setAttribute("id", `stat${statId}-${stat}`);
-    ul.appendChild(li);
+let numero = 0;
+function pokemonStats(id, stat) {
+    let statUl = document.getElementById(`stats-${id}`);
+    let allList = statUl.querySelectorAll("li");
+    let stats = ['Hp: ', 'Atq: ', 'sAtq: ', 'Def: ', 'sDef: ', 'Vel: '];
+
+    for (let i = 0; i < allList.length; i++) {
+        allList[i].textContent = stats[i] + stat[i].base_stat;
+    }
 }
 function buscarPokemon(pokemonName, myFunction) {
 
@@ -18,46 +21,47 @@ function buscarPokemon(pokemonName, myFunction) {
     }
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}/`)
         .then((response) => response.json())
-        .then((data) => myFunction(data));
+        .then((data) => {
+            myFunction(data)
+        });
 }
-function compare () {
-    console.log({pokemon1Json, pokemon2Json})
-    if(pokemon1Json.hp!=0 && pokemon2Json.hp!=0) {
+function compare() {
+    if (pokemon1Json.hp != 0 && pokemon2Json.hp != 0) {
         if (pokemon1Json.hp > pokemon2Json.hp) {
             console.log(name1 + " " + pokemon1Json.hp + " is bigger");
         } else if (pokemon1Json.hp < pokemon2Json.hp) {
             console.log(name2 + " " + pokemon2Json.hp + " is bigger");
         } else { console.log("Son iguales"); }
     }
-    if(pokemon1Json.atq!=0 && pokemon2Json.atq!=0) {
+    if (pokemon1Json.atq != 0 && pokemon2Json.atq != 0) {
         if (pokemon1Json.atq > pokemon2Json.atq) {
             console.log(name1 + " " + pokemon1Json.atq + " is bigger");
         } else if (pokemon1Json.atq < pokemon2Json.atq) {
             console.log(name2 + " " + pokemon2Json.atq + " is bigger");
         } else { console.log("Son iguales"); }
     }
-    if(pokemon1Json.sAtq!=0 && pokemon2Json.sAtq!=0) {
+    if (pokemon1Json.sAtq != 0 && pokemon2Json.sAtq != 0) {
         if (pokemon1Json.sAtq > pokemon2Json.sAtq) {
             console.log(name1 + " " + pokemon1Json.sAtq + " is bigger");
         } else if (pokemon1Json.sAtq < pokemon2Json.sAtq) {
             console.log(name2 + " " + pokemon2Json.sAtq + " is bigger");
         } else { console.log("Son iguales"); }
     }
-    if(pokemon1Json.def!=0 && pokemon2Json.def!=0) {
+    if (pokemon1Json.def != 0 && pokemon2Json.def != 0) {
         if (pokemon1Json.def > pokemon2Json.def) {
             console.log(name1 + " " + pokemon1Json.def + " is bigger");
         } else if (pokemon1Json.def < pokemon2Json.def) {
             console.log(name2 + " " + pokemon2Json.def + " is bigger");
         } else { console.log("Son iguales"); }
     }
-    if(pokemon1Json.sDef!=0 && pokemon2Json.sDef!=0) {
+    if (pokemon1Json.sDef != 0 && pokemon2Json.sDef != 0) {
         if (pokemon1Json.sDef > pokemon2Json.sDef) {
             console.log(name1 + " " + pokemon1Json.sDef + " is bigger");
         } else if (pokemon1Json.sDef < pokemon2Json.sDef) {
             console.log(name2 + " " + pokemon2Json.sDef + " is bigger");
         } else { console.log("Son iguales"); }
     }
-    if(pokemon1Json.vel!=0 && pokemon2Json.vel!=0) {
+    if (pokemon1Json.vel != 0 && pokemon2Json.vel != 0) {
         if (pokemon1Json.vel > pokemon2Json.vel) {
             console.log(name1 + " " + pokemon1Json.vel + " is bigger");
         } else if (pokemon1Json.vel < pokemon2Json.vel) {
@@ -65,7 +69,6 @@ function compare () {
         } else { console.log("Son iguales"); }
     }
 }
-
 $(document).click(function () {
     var isHovered = $('#caja1').filter(function () {
         return $(this).is(":hover");
@@ -77,13 +80,11 @@ $(document).click(function () {
     let allList2 = suggBox2.querySelectorAll("li");
 
     if (isHovered.length > 0 && allList.length >= 1) {
-        console.log(allList);
         searchWrapper.classList.add('active');
     } else {
         searchWrapper.classList.remove('active');
     }
     if (isHovered2.length > 0 && allList2.length >= 1) {
-        console.log(allList);
         searchWrapper2.classList.add('active');
     } else {
         searchWrapper2.classList.remove('active');
@@ -107,6 +108,59 @@ let pokemon1Json = {
     sDef: 0,
     vel: 0,
 };
+// Search with arrows
+searchWrapper.onkeyup = (e) => {
+    let allList = suggBox.querySelectorAll("li");
+    let max = allList.length;
+
+    e = e || window.event;
+
+    switch (e.key) {
+        case 'Enter':
+            console.log(`El numero es: ${numero}`);
+            select(allList[numero-1]);
+            break;
+        case 'ArrowUp':
+            if (numero <= 1) {
+                numero = max;
+                allList[numero - 1].classList.add("is-active");
+            }
+            else if (numero > 0) {
+                numero--;
+                allList[numero - 1].classList.add("is-active");
+            }
+            break;
+        case 'ArrowDown':
+            if (numero < max) {
+                numero++;
+                allList[numero - 1].classList.add("is-active");
+            }
+            else if (numero = max) {
+                numero = 1;
+                allList[numero - 1].classList.add("is-active");
+            }
+            break;
+        default:
+            console.log('No se encuentra');
+    }
+
+    /* if (numero <= 1 && e.keyCode == '38') {
+        numero = max;
+        allList[numero - 1].classList.add("is-active");
+    }
+    else if (numero > 0 && e.keyCode == '38') {
+        numero--;
+        allList[numero - 1].classList.add("is-active");
+    }
+    else if (numero < max && e.keyCode == '40') {
+        numero++;
+        allList[numero - 1].classList.add("is-active");
+    }
+    else if (numero = max && e.keyCode == '40') {
+        numero = 1;
+        allList[numero - 1].classList.add("is-active");
+    } */
+}
 // Sugestion box
 caja1.onkeyup = (e) => {
     let userData = e.target.value;
@@ -130,16 +184,16 @@ caja1.onkeyup = (e) => {
         searchWrapper.classList.add('active');
         if (emptyArray.length <= 0) {
             searchWrapper.classList.remove('active');
-            while (suggBox.firstChild) {
+            /* while (suggBox.firstChild) {
                 suggBox.removeChild(suggBox.firstChild);
-            }
+            } */
         }
     }
     if (caja1.value == '') {
         searchWrapper.classList.remove('active');
-        while (suggBox.firstChild) {
+        /* while (suggBox.firstChild) {
             suggBox.removeChild(suggBox.firstChild);
-        }
+        } */
     }
 }
 function select(element) {
@@ -152,7 +206,6 @@ function select(element) {
     let pokemonName = document.getElementById("caja1").value;
     let type1 = document.getElementById("type-pokemon-1-1");
     let type2 = document.getElementById("type-pokemon-1-2");
-    let root = document.getElementById("stats-1");
 
     buscarPokemon(pokemonName, pokemon);
     // Obtener datos de pokemon 1
@@ -170,12 +223,7 @@ function select(element) {
             type2.textContent = null;
         }
 
-        pokemonsStats(`Hp: ${dataPokemon.stats[0].base_stat}`, 1, 'hp');
-        pokemonsStats(`Atq: ${dataPokemon.stats[1].base_stat}`, 1, 'atq');
-        pokemonsStats(`S.Atq: ${dataPokemon.stats[2].base_stat}`, 1, 'sAtq');
-        pokemonsStats(`Def: ${dataPokemon.stats[3].base_stat}`, 1, 'def');
-        pokemonsStats(`S.Def: ${dataPokemon.stats[4].base_stat}`, 1, 'sDef');
-        pokemonsStats(`Spd: ${dataPokemon.stats[5].base_stat}`, 1, 'spd');
+        pokemonStats(1, dataPokemon.stats);
 
         changeBackground(type1);
         changeBackground(type2);
@@ -192,12 +240,9 @@ function select(element) {
 
     name1 = pokemonName;
 
-    while (root.firstChild) {
-        root.removeChild(root.firstChild);
-    }
-    while (suggBox.firstChild) {
+    /* while (suggBox.firstChild) {
         suggBox.removeChild(suggBox.firstChild);
-    }
+    } */
 }
 function showSuggestions(list) {
     let listData;
@@ -217,47 +262,6 @@ card.addEventListener("click", () => {
 
     console.log(pokemon1Json);
 })
-// Modificar la caja de los pokemons con datos
-/* button.addEventListener("click", () => {
-    pokemon1.classList.add('is-empty');
-
-    let pokemonName = document.getElementById("caja1").value;
-    let type1 = document.getElementById("type-pokemon-1-1");
-    let type2 = document.getElementById("type-pokemon-1-2");
-    let root = document.getElementById("stats-1");
-
-    buscarPokemon(pokemonName, pokemon);
-    function pokemon(dataPokemon) {
-        img1_default.setAttribute("src", dataPokemon.sprites.front_default);
-        img1_shiny.setAttribute("src", dataPokemon.sprites.front_shiny);
-        card.classList.remove('is-flipped');
-        pokemon1.classList.remove('is-empty');
-
-        if (dataPokemon.types.length == 2) {
-            type1.textContent = dataPokemon.types[0].type.name;
-            type2.textContent = dataPokemon.types[1].type.name;
-        } else {
-            type1.textContent = dataPokemon.types[0].type.name;
-            type2.textContent = null;
-        }
-
-        pokemonsStats(`Hp: ${dataPokemon.stats[0].base_stat}`, 1, 'hp');
-        pokemonsStats(`Atq: ${dataPokemon.stats[1].base_stat}`, 1, 'atq');
-        pokemonsStats(`S.Atq: ${dataPokemon.stats[2].base_stat}`, 1, 'sAtq');
-        pokemonsStats(`Def: ${dataPokemon.stats[3].base_stat}`, 1, 'def');
-        pokemonsStats(`S.Def: ${dataPokemon.stats[4].base_stat}`, 1, 'sDef');
-        pokemonsStats(`Spd: ${dataPokemon.stats[5].base_stat}`, 1, 'spd');
-
-        changeBackground(type1);
-        changeBackground(type2);
-    }
-
-    name1 = pokemonName;
-
-    while (root.firstChild) {
-        root.removeChild(root.firstChild);
-    }
-}) */
 // --------------------------------------------------------------
 
 // Pokemon 2
@@ -278,7 +282,38 @@ let pokemon2Json = {
     sDef: 0,
     vel: 0,
 };
+// Search with arrows
+searchWrapper2.onkeyup = (e) => {
+    let allList = suggBox2.querySelectorAll("li");
+    let max = allList.length;
 
+    console.log(allList);
+
+    e = e || window.event;
+
+    if (numero <= 1 && e.keyCode == '38') {
+        numero = max;
+        console.log('up', numero);
+        allList[numero - 1].setAttribute("class", "is-active");
+    }
+    else if (numero > 0 && e.keyCode == '38') {
+        numero--;
+        console.log('up', numero);
+        allList[numero - 1].setAttribute("class", "is-active");
+    }
+    else if (numero < max && e.keyCode == '40') {
+        ;
+        numero++;
+        console.log('down', numero);
+        allList[numero - 1].setAttribute("class", "is-active");
+    }
+    else if (numero = max && e.keyCode == '40') {
+        numero = 1;
+        console.log('down', numero);
+        allList[numero - 1].setAttribute("class", "is-active");
+    }
+}
+// Sugestion box
 caja2.onkeyup = (e) => {
     let userData = e.target.value;
     let emptyArray = [];
@@ -327,7 +362,6 @@ function select2(element) {
     let pokemonName = document.getElementById("caja2").value;
     let type1 = document.getElementById("type-pokemon-2-1");
     let type2 = document.getElementById("type-pokemon-2-2");
-    let root = document.getElementById("stats-2");
     // Usar la primera funcion del script para rellenar los datos del pokemon
     buscarPokemon(pokemonName, pokemon);
     function pokemon(dataPokemon) {
@@ -344,12 +378,7 @@ function select2(element) {
             type2.textContent = null;
         }
 
-        pokemonsStats(`Hp: ${dataPokemon.stats[0].base_stat}`, 2, "hp");
-        pokemonsStats(`Atq: ${dataPokemon.stats[1].base_stat}`, 2, "atq");
-        pokemonsStats(`S.Atq: ${dataPokemon.stats[2].base_stat}`, 2, "sAtq");
-        pokemonsStats(`Def: ${dataPokemon.stats[3].base_stat}`, 2, "def");
-        pokemonsStats(`S.Def: ${dataPokemon.stats[4].base_stat}`, 2, "sDef");
-        pokemonsStats(`Spd: ${dataPokemon.stats[5].base_stat}`, 2, "spd");
+        pokemonStats(2, dataPokemon.stats);
 
         changeBackground(type1);
         changeBackground(type2);
@@ -366,9 +395,6 @@ function select2(element) {
 
     name2 = pokemonName;
 
-    while (root.firstChild) {
-        root.removeChild(root.firstChild);
-    }
     while (suggBox2.firstChild) {
         suggBox2.removeChild(suggBox2.firstChild);
     }
@@ -390,45 +416,3 @@ card2.addEventListener("click", () => {
     console.log(pokemon2Json);
 
 })
-// Modificar la caja de los pokemons con datos
-/* button2.addEventListener("click", () => {
-    card2.classList.remove('is-empty');
-    pokemon2.classList.add('is-empty');
-
-    let pokemonName = document.getElementById("caja2").value;
-    let type1 = document.getElementById("type-pokemon-2-1");
-    let type2 = document.getElementById("type-pokemon-2-2");
-    let root = document.getElementById("stats-2");
-    // Usar la primera funcion del script para rellenar los datos del pokemon
-    buscarPokemon(pokemonName, pokemon);
-    function pokemon(dataPokemon) {
-        card2.classList.remove('is-flipped');
-        pokemon2.classList.remove('is-empty');
-        img2_default.setAttribute("src", dataPokemon.sprites.front_default);
-        img2_shiny.setAttribute("src", dataPokemon.sprites.front_shiny);
-
-        if (dataPokemon.types.length == 2) {
-            type1.textContent = dataPokemon.types[0].type.name;
-            type2.textContent = dataPokemon.types[1].type.name;
-        } else {
-            type1.textContent = dataPokemon.types[0].type.name;
-            type2.textContent = null;
-        }
-
-        pokemonsStats(`Hp: ${dataPokemon.stats[0].base_stat}`, 2, "hp");
-        pokemonsStats(`Atq: ${dataPokemon.stats[1].base_stat}`, 2, "atq");
-        pokemonsStats(`S.Atq: ${dataPokemon.stats[2].base_stat}`, 2, "sAtq");
-        pokemonsStats(`Def: ${dataPokemon.stats[3].base_stat}`, 2, "def");
-        pokemonsStats(`S.Def: ${dataPokemon.stats[4].base_stat}`, 2, "sDef");
-        pokemonsStats(`Spd: ${dataPokemon.stats[5].base_stat}`, 2, "spd");
-
-        changeBackground(type1);
-        changeBackground(type2);
-    }
-
-    name2 = pokemonName;
-
-    while (root.firstChild) {
-        root.removeChild(root.firstChild);
-    }
-}) */
