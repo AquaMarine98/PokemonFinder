@@ -76,6 +76,7 @@ header{
     box-sizing: border-box;
     font-family: 'Dongle';
     text-transform: capitalize;
+    text-align: center;
 }
 #caja::placeholder {
     text-align: center;
@@ -104,6 +105,9 @@ header{
     text-transform: capitalize;
 }
 #autocom-box li:hover, #autocom-box-2 li:hover {
+    background-color: #efefef;
+}
+#autocom-box li.is-active, #autocom-box-2 li.is-active {
     background-color: #efefef;
 }
 #search-input.active #autocom-box li, #search-input-2.active #autocom-box-2 li{
@@ -148,7 +152,7 @@ header{
 #type-pokemon-1-1, #type-pokemon-1-2, #type-pokemon-2-1, #type-pokemon-2-2 {
     text-align: center;
     border: 0.1px solid whitesmoke;
-    border-radius: var(--small-line);
+    border-radius: 8px;
     width: 100%;
     color: white;
     font-size: 16px;
@@ -253,4 +257,8 @@ h1 {
 }
 #stats-2 {
     margin: 0 8px 0 0;
+}
+#stats-1 div, #stats-2 div {
+    display: flex;
+    flex-direction: row;
 }
