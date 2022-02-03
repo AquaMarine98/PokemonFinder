@@ -4,7 +4,6 @@ window.onload = () => {
 	fetch('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=898')
 		.then((response) => response.json())
 		.then((data) => {
-			console.log(data.results.length);
 			for (let i = 0; i < data.results.length; i++) {
 				if (data.results[i].name == "nidoran-f") {
 					pokemons.push("nidoran♀");
