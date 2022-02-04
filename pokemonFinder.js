@@ -26,47 +26,101 @@ function buscarPokemon(pokemonName, myFunction) {
         });
 }
 function compare() {
+    let stats1 = document.getElementById("stats-1");
+    let imgStats1 = stats1.querySelectorAll('img');
+
+    let stats2 = document.getElementById("stats-2");
+    let imgStats2 = stats2.querySelectorAll('img')
+
     if (pokemon1Json.hp != 0 && pokemon2Json.hp != 0) {
         if (pokemon1Json.hp > pokemon2Json.hp) {
             console.log(name1 + " " + pokemon1Json.hp + " is bigger");
+            imgStats1[0].src = './Imagenes/FlechaArriba.png';
+            imgStats2[0].src = './Imagenes/FlechaAbajo.png';
         } else if (pokemon1Json.hp < pokemon2Json.hp) {
             console.log(name2 + " " + pokemon2Json.hp + " is bigger");
-        } else { console.log("Son iguales"); }
+            imgStats1[0].src = './Imagenes/FlechaAbajo.png';
+            imgStats2[0].src = './Imagenes/FlechaArriba.png';
+        } else {
+            console.log("Son iguales");
+            imgStats1[0].src = './Imagenes/FlechaIgual.png';
+            imgStats2[0].src = './Imagenes/FlechaIgual.png';
+        }
     }
     if (pokemon1Json.atq != 0 && pokemon2Json.atq != 0) {
         if (pokemon1Json.atq > pokemon2Json.atq) {
             console.log(name1 + " " + pokemon1Json.atq + " is bigger");
+            imgStats1[1].src = './Imagenes/FlechaArriba.png';
+            imgStats2[1].src = './Imagenes/FlechaAbajo.png';
         } else if (pokemon1Json.atq < pokemon2Json.atq) {
             console.log(name2 + " " + pokemon2Json.atq + " is bigger");
-        } else { console.log("Son iguales"); }
+            imgStats1[1].src = './Imagenes/FlechaAbajo.png';
+            imgStats2[1].src = './Imagenes/FlechaArriba.png';
+        } else {
+            console.log("Son iguales");
+            imgStats1[1].src = './Imagenes/FlechaIgual.png';
+            imgStats2[1].src = './Imagenes/FlechaIgual.png';
+        }
     }
     if (pokemon1Json.sAtq != 0 && pokemon2Json.sAtq != 0) {
         if (pokemon1Json.sAtq > pokemon2Json.sAtq) {
             console.log(name1 + " " + pokemon1Json.sAtq + " is bigger");
+            imgStats1[2].src = './Imagenes/FlechaArriba.png';
+            imgStats2[2].src = './Imagenes/FlechaAbajo.png';
         } else if (pokemon1Json.sAtq < pokemon2Json.sAtq) {
             console.log(name2 + " " + pokemon2Json.sAtq + " is bigger");
-        } else { console.log("Son iguales"); }
+            imgStats1[2].src = './Imagenes/FlechaAbajo.png';
+            imgStats2[2].src = './Imagenes/FlechaArriba.png';
+        } else {
+            console.log("Son iguales");
+            imgStats1[2].src = './Imagenes/FlechaIgual.png';
+            imgStats2[2].src = './Imagenes/FlechaIgual.png';
+        }
     }
     if (pokemon1Json.def != 0 && pokemon2Json.def != 0) {
         if (pokemon1Json.def > pokemon2Json.def) {
             console.log(name1 + " " + pokemon1Json.def + " is bigger");
+            imgStats1[3].src = './Imagenes/FlechaArriba.png';
+            imgStats2[3].src = './Imagenes/FlechaAbajo.png';
         } else if (pokemon1Json.def < pokemon2Json.def) {
             console.log(name2 + " " + pokemon2Json.def + " is bigger");
-        } else { console.log("Son iguales"); }
+            imgStats1[3].src = './Imagenes/FlechaAbajo.png';
+            imgStats2[3].src = './Imagenes/FlechaArriba.png';
+        } else {
+            console.log("Son iguales");
+            imgStats1[3].src = './Imagenes/FlechaIgual.png';
+            imgStats2[3].src = './Imagenes/FlechaIgual.png';
+        }
     }
     if (pokemon1Json.sDef != 0 && pokemon2Json.sDef != 0) {
         if (pokemon1Json.sDef > pokemon2Json.sDef) {
             console.log(name1 + " " + pokemon1Json.sDef + " is bigger");
+            imgStats1[4].src = './Imagenes/FlechaArriba.png';
+            imgStats2[4].src = './Imagenes/FlechaAbajo.png';
         } else if (pokemon1Json.sDef < pokemon2Json.sDef) {
             console.log(name2 + " " + pokemon2Json.sDef + " is bigger");
-        } else { console.log("Son iguales"); }
+            imgStats1[4].src = './Imagenes/FlechaAbajo.png';
+            imgStats2[4].src = './Imagenes/FlechaArriba.png';
+        } else {
+            console.log("Son iguales");
+            imgStats1[4].src = './Imagenes/FlechaIgual.png';
+            imgStats2[4].src = './Imagenes/FlechaIgual.png';
+        }
     }
     if (pokemon1Json.vel != 0 && pokemon2Json.vel != 0) {
         if (pokemon1Json.vel > pokemon2Json.vel) {
             console.log(name1 + " " + pokemon1Json.vel + " is bigger");
+            imgStats1[5].src = './Imagenes/FlechaArriba.png';
+            imgStats2[5].src = './Imagenes/FlechaAbajo.png';
         } else if (pokemon1Json.vel < pokemon2Json.vel) {
             console.log(name2 + " " + pokemon2Json.vel + " is bigger");
-        } else { console.log("Son iguales"); }
+            imgStats1[5].src = './Imagenes/FlechaAbajo.png';
+            imgStats2[5].src = './Imagenes/FlechaArriba.png';
+        } else {
+            console.log("Son iguales");
+            imgStats1[5].src = './Imagenes/FlechaIgual.png';
+            imgStats2[5].src = './Imagenes/FlechaIgual.png';
+        }
     }
 }
 $(document).click(function () {
@@ -81,11 +135,13 @@ $(document).click(function () {
 
     if (isHovered.length > 0 && allList.length >= 1) {
         searchWrapper.classList.add('active');
+        numero = 0;
     } else {
         searchWrapper.classList.remove('active');
     }
     if (isHovered2.length > 0 && allList2.length >= 1) {
         searchWrapper2.classList.add('active');
+        numero = 0;
     } else {
         searchWrapper2.classList.remove('active');
     }
@@ -118,7 +174,8 @@ searchWrapper.onkeyup = (e) => {
     switch (e.key) {
         case 'Enter':
             console.log(`El numero es: ${numero}`);
-            select(allList[numero-1]);
+            select(allList[numero - 1]);
+            numero = 0;
             break;
         case 'ArrowUp':
             if (numero <= 1) {
@@ -143,23 +200,6 @@ searchWrapper.onkeyup = (e) => {
         default:
             console.log('No se encuentra');
     }
-
-    /* if (numero <= 1 && e.keyCode == '38') {
-        numero = max;
-        allList[numero - 1].classList.add("is-active");
-    }
-    else if (numero > 0 && e.keyCode == '38') {
-        numero--;
-        allList[numero - 1].classList.add("is-active");
-    }
-    else if (numero < max && e.keyCode == '40') {
-        numero++;
-        allList[numero - 1].classList.add("is-active");
-    }
-    else if (numero = max && e.keyCode == '40') {
-        numero = 1;
-        allList[numero - 1].classList.add("is-active");
-    } */
 }
 // Sugestion box
 caja1.onkeyup = (e) => {
@@ -287,30 +327,36 @@ searchWrapper2.onkeyup = (e) => {
     let allList = suggBox2.querySelectorAll("li");
     let max = allList.length;
 
-    console.log(allList);
-
     e = e || window.event;
 
-    if (numero <= 1 && e.keyCode == '38') {
-        numero = max;
-        console.log('up', numero);
-        allList[numero - 1].setAttribute("class", "is-active");
-    }
-    else if (numero > 0 && e.keyCode == '38') {
-        numero--;
-        console.log('up', numero);
-        allList[numero - 1].setAttribute("class", "is-active");
-    }
-    else if (numero < max && e.keyCode == '40') {
-        ;
-        numero++;
-        console.log('down', numero);
-        allList[numero - 1].setAttribute("class", "is-active");
-    }
-    else if (numero = max && e.keyCode == '40') {
-        numero = 1;
-        console.log('down', numero);
-        allList[numero - 1].setAttribute("class", "is-active");
+    switch (e.key) {
+        case 'Enter':
+            console.log(`El numero es: ${numero}`);
+            select2(allList[numero - 1]);
+            numero = 0;
+            break;
+        case 'ArrowUp':
+            if (numero <= 1) {
+                numero = max;
+                allList[numero - 1].classList.add("is-active");
+            }
+            else if (numero > 0) {
+                numero--;
+                allList[numero - 1].classList.add("is-active");
+            }
+            break;
+        case 'ArrowDown':
+            if (numero < max) {
+                numero++;
+                allList[numero - 1].classList.add("is-active");
+            }
+            else if (numero = max) {
+                numero = 1;
+                allList[numero - 1].classList.add("is-active");
+            }
+            break;
+        default:
+            console.log('No se encuentra');
     }
 }
 // Sugestion box
