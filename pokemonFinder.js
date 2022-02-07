@@ -130,8 +130,12 @@ $(document).click(function () {
     var isHovered2 = $('#caja2').filter(function () {
         return $(this).is(":hover");
     });
+    var isHovered3 = $('#searcher').filter(function () {
+        return $(this).is(":hover");
+    });
     let allList = suggBox.querySelectorAll("li");
     let allList2 = suggBox2.querySelectorAll("li");
+    let allList3 = pokeFiller.querySelectorAll("li");
 
     if (isHovered.length > 0 && allList.length >= 1) {
         searchWrapper.classList.add('active');
@@ -144,6 +148,12 @@ $(document).click(function () {
         numero = 0;
     } else {
         searchWrapper2.classList.remove('active');
+    }
+    if (isHovered3.length > 0 && allList3.length >= 1) {
+        navBar.classList.add('active');
+        numero = 0;
+    } else {
+        navBar.classList.remove('active');
     }
 })
 // Pokemon 1
@@ -462,3 +472,94 @@ card2.addEventListener("click", () => {
     console.log(pokemon2Json);
 
 })
+
+// Inicio de pagina
+// Elegir los dos primeros pokemons
+let navBar = document.getElementById("nav-bar");
+let pokeFiller = document.getElementById("pokemons-filler");
+let searcher = document.getElementById("searcher");
+let img_default = document.getElementById("pokemon-img-1");
+let pokemonName1 = document.getElementById('pokemon-name-1');
+let img_default0 = document.getElementById("pokemon-img-2");
+let pokemonName0 = document.getElementById('pokemon-name-2');
+let cardG = document.getElementById('card');
+let faceCardFront = document.getElementById('face-card-front');
+let faceCardBack = document.getElementById('face-card-back');
+
+searcher.onkeyup = (e) => {
+    let userData = e.target.value;
+    let emptyArray = [];
+
+    if (userData) {
+        emptyArray = pokemons.filter((data) => {
+            return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
+        })
+
+        emptyArray = emptyArray.map((data) => {
+            return data = '<li>' + data + '</li>';
+        })
+
+        showSuggestions3(emptyArray);
+
+        let allList = pokeFiller.querySelectorAll("li");
+
+        for (let i = 0; i < allList.length; i++) {
+            allList[i].setAttribute("onclick", "select3(this)");
+        }
+
+        navBar.classList.add('active');
+
+        if (emptyArray.length <= 0) {
+            navBar.classList.remove('active');
+            while (pokeFiller.firstChild) {
+                pokeFiller.removeChild(pokeFiller.firstChild);
+            }
+        }
+    }
+
+    if (searcher.value == '') {
+        navBar.classList.remove('active');
+        while (pokeFiller.firstChild) {
+            pokeFiller.removeChild(pokeFiller.firstChild);
+        }
+    }
+}
+function select3(element) {
+    let selectUserData = element.textContent;
+    searcher.value = selectUserData;
+
+    buscarPokemon(selectUserData, pokemon);
+    function pokemon(dataPokemon) {
+
+        if (faceCardBack.classList.contains('is-active')) {
+            searcher.value = '';
+
+            img_default0.setAttribute("src", dataPokemon.sprites.front_default);
+            pokemonName0.textContent = dataPokemon.name;
+        }
+        
+        if (faceCardFront.classList.contains('is-active')) {
+            searcher.value = '';
+            img_default.setAttribute("src", dataPokemon.sprites.front_default);
+            pokemonName1.textContent = dataPokemon.name;
+
+            window.setTimeout(() =>
+                cardG.classList.add('flipped'), 300);
+
+            faceCardFront.classList.remove('is-active');
+
+            faceCardBack.classList.add('is-active');
+        }
+    }
+
+}
+function showSuggestions3(list) {
+    let listData;
+    if (!list.length) {
+        userValue = searcher.value;
+        listData = '<li>' + userValue + '<li>';
+    } else {
+        listData = list.join('');
+    }
+    pokeFiller.innerHTML = listData;
+}
