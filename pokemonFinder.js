@@ -9,7 +9,7 @@ function pokemonStats(id, stat) {
         allList[i].textContent = stats[i] + stat[i].base_stat;
     }
 }
-function buscarPokemon(pokemonName, myFunction) {
+function buscarPokemon(pokemonName, myFunction, otherFunction = null) {
 
     if (pokemonName.toLowerCase() == "nidoran♀") {
         pokemonName = pokemonName.replace(/[♀]+/g, '-f').toLowerCase();
@@ -22,6 +22,9 @@ function buscarPokemon(pokemonName, myFunction) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}/`)
         .then((response) => response.json())
         .then((data) => {
+            if (otherFunction != null) {
+                otherFunction();
+            }
             myFunction(data)
         });
 }
@@ -478,6 +481,7 @@ card2.addEventListener("click", () => {
 let navBar = document.getElementById("nav-bar");
 let pokeFiller = document.getElementById("pokemons-filler");
 let searcher = document.getElementById("searcher");
+let initialPokemons = document.getElementById('search-pokemon');
 let img_default = document.getElementById("pokemon-img-1");
 let pokemonName1 = document.getElementById('pokemon-name-1');
 let img_default0 = document.getElementById("pokemon-img-2");
@@ -528,30 +532,49 @@ function select3(element) {
     let selectUserData = element.textContent;
     searcher.value = selectUserData;
 
-    buscarPokemon(selectUserData, pokemon);
+    buscarPokemon(selectUserData, pokemon, load);
+    console.log(load)
     function pokemon(dataPokemon) {
 
         if (faceCardBack.classList.contains('is-active')) {
-            searcher.value = '';
-
             img_default0.setAttribute("src", dataPokemon.sprites.front_default);
             pokemonName0.textContent = dataPokemon.name;
+            // Animation
+            cardG.classList.remove('flipped');
+            faceCardBack.classList.remove('is-active');
+            faceCardFront.classList.add('posicionating');
+            faceCardBack.classList.add('posicionating');
+            initialPokemons.classList.add('all-done');
         }
-        
         if (faceCardFront.classList.contains('is-active')) {
-            searcher.value = '';
             img_default.setAttribute("src", dataPokemon.sprites.front_default);
             pokemonName1.textContent = dataPokemon.name;
-
-            window.setTimeout(() =>
-                cardG.classList.add('flipped'), 300);
 
             faceCardFront.classList.remove('is-active');
 
             faceCardBack.classList.add('is-active');
         }
     }
+    function load() {
+        if (faceCardFront.classList.contains('is-active')) {
+            window.setTimeout(() => {
+                cardG.classList.add('flipped');
+                searcher.value = '';
+            }, 500);
 
+            console.log('working');
+        } else {
+            window.setTimeout(() => {
+                searcher.value = '';
+            }, 500);
+    
+            console.log('not working');
+        }
+    }
+
+    while (pokeFiller.firstChild) {
+        pokeFiller.removeChild(pokeFiller.firstChild);
+    }
 }
 function showSuggestions3(list) {
     let listData;
