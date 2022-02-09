@@ -1,5 +1,6 @@
 // Funciona para Pokemon 1 y 2
 let numero = 0;
+let pokeCont = document.getElementById('pokemons-container');
 function pokemonStats(id, stat) {
     let statUl = document.getElementById(`stats-${id}`);
     let allList = statUl.querySelectorAll("li");
@@ -249,8 +250,13 @@ caja1.onkeyup = (e) => {
         } */
     }
 }
-function select(element) {
-    let selectUserData = element.textContent;
+function select(element = null, name = null) {
+    let selectUserData;
+    if (element == null) {
+        selectUserData = name;
+    } else {
+        selectUserData = element.textContent;
+    }
     caja1.value = selectUserData;
 
     searchWrapper.classList.remove('active');
@@ -410,8 +416,13 @@ caja2.onkeyup = (e) => {
     }
 }
 
-function select2(element) {
-    let selectUserData = element.textContent;
+function select2(element = null, name = null) {
+    let selectUserData;
+    if (element == null) {
+        selectUserData = name;
+    } else {
+        selectUserData = element.textContent;
+    }
     caja2.value = selectUserData;
 
     searchWrapper2.classList.remove('active');
@@ -486,6 +497,8 @@ let img_default = document.getElementById("pokemon-img-1");
 let pokemonName1 = document.getElementById('pokemon-name-1');
 let img_default0 = document.getElementById("pokemon-img-2");
 let pokemonName0 = document.getElementById('pokemon-name-2');
+let imgContainer1 = document.getElementById('img-container1');
+let imgContainer2 = document.getElementById('img-container2');
 let cardG = document.getElementById('card');
 let faceCardFront = document.getElementById('face-card-front');
 let faceCardBack = document.getElementById('face-card-back');
@@ -528,27 +541,79 @@ searcher.onkeyup = (e) => {
         }
     }
 }
+navBar.onkeyup = (e) => {
+    let allList = pokeFiller.querySelectorAll("li");
+    let max = allList.length;
+
+    e = e || window.event;
+
+    switch (e.key) {
+        case 'Enter':
+            console.log(`El numero es: ${numero}`);
+            select3(allList[numero - 1]);
+            numero = 0;
+            break;
+        case 'ArrowUp':
+            if (numero <= 1) {
+                numero = max;
+                allList[numero - 1].classList.add("is-active");
+            }
+            else if (numero > 0) {
+                numero--;
+                allList[numero - 1].classList.add("is-active");
+            }
+            break;
+        case 'ArrowDown':
+            if (numero < max) {
+                numero++;
+                allList[numero - 1].classList.add("is-active");
+            }
+            else if (numero = max) {
+                numero = 1;
+                allList[numero - 1].classList.add("is-active");
+            }
+            break;
+        default:
+            console.log('No se encuentra');
+    }
+}
 function select3(element) {
+    let poke1;
+    let poke2;
+
     let selectUserData = element.textContent;
     searcher.value = selectUserData;
 
     buscarPokemon(selectUserData, pokemon, load);
-    console.log(load)
     function pokemon(dataPokemon) {
 
         if (faceCardBack.classList.contains('is-active')) {
             img_default0.setAttribute("src", dataPokemon.sprites.front_default);
             pokemonName0.textContent = dataPokemon.name;
+            poke2 = dataPokemon.name;
+            select2(null, poke2);
             // Animation
             cardG.classList.remove('flipped');
             faceCardBack.classList.remove('is-active');
             faceCardFront.classList.add('posicionating');
             faceCardBack.classList.add('posicionating');
             initialPokemons.classList.add('all-done');
+            window.setTimeout(() => {
+                faceCardBack.classList.add('going-down');
+                faceCardFront.classList.add('going-down');
+                imgContainer1.classList.add('going-down');
+                imgContainer2.classList.add('going-down');
+                window.setTimeout(() => {
+                    pokeCont.classList.remove('is-not-active');
+                    initialPokemons.classList.add('is-not-active');
+                }, 1000)
+            }, 1000);
         }
         if (faceCardFront.classList.contains('is-active')) {
             img_default.setAttribute("src", dataPokemon.sprites.front_default);
             pokemonName1.textContent = dataPokemon.name;
+            poke1 = dataPokemon.name;
+            select(null, poke1);
 
             faceCardFront.classList.remove('is-active');
 
@@ -561,14 +626,10 @@ function select3(element) {
                 cardG.classList.add('flipped');
                 searcher.value = '';
             }, 500);
-
-            console.log('working');
         } else {
             window.setTimeout(() => {
                 searcher.value = '';
             }, 500);
-    
-            console.log('not working');
         }
     }
 
