@@ -1,5 +1,6 @@
 // Funciona para Pokemon 1 y 2
 let numero = 0;
+let pokeCont = document.getElementById('pokemons-container');
 function pokemonStats(id, stat) {
     let statUl = document.getElementById(`stats-${id}`);
     let allList = statUl.querySelectorAll("li");
@@ -9,7 +10,7 @@ function pokemonStats(id, stat) {
         allList[i].textContent = stats[i] + stat[i].base_stat;
     }
 }
-function buscarPokemon(pokemonName, myFunction) {
+function buscarPokemon(pokemonName, myFunction, otherFunction = null) {
 
     if (pokemonName.toLowerCase() == "nidoran♀") {
         pokemonName = pokemonName.replace(/[♀]+/g, '-f').toLowerCase();
@@ -22,6 +23,9 @@ function buscarPokemon(pokemonName, myFunction) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}/`)
         .then((response) => response.json())
         .then((data) => {
+            if (otherFunction != null) {
+                otherFunction();
+            }
             myFunction(data)
         });
 }
@@ -130,8 +134,12 @@ $(document).click(function () {
     var isHovered2 = $('#caja2').filter(function () {
         return $(this).is(":hover");
     });
+    var isHovered3 = $('#searcher').filter(function () {
+        return $(this).is(":hover");
+    });
     let allList = suggBox.querySelectorAll("li");
     let allList2 = suggBox2.querySelectorAll("li");
+    let allList3 = pokeFiller.querySelectorAll("li");
 
     if (isHovered.length > 0 && allList.length >= 1) {
         searchWrapper.classList.add('active');
@@ -144,6 +152,12 @@ $(document).click(function () {
         numero = 0;
     } else {
         searchWrapper2.classList.remove('active');
+    }
+    if (isHovered3.length > 0 && allList3.length >= 1) {
+        navBar.classList.add('active');
+        numero = 0;
+    } else {
+        navBar.classList.remove('active');
     }
 })
 // Pokemon 1
@@ -236,8 +250,13 @@ caja1.onkeyup = (e) => {
         } */
     }
 }
-function select(element) {
-    let selectUserData = element.textContent;
+function select(element = null, name = null) {
+    let selectUserData;
+    if (element == null) {
+        selectUserData = name;
+    } else {
+        selectUserData = element.textContent;
+    }
     caja1.value = selectUserData;
 
     searchWrapper.classList.remove('active');
@@ -397,8 +416,13 @@ caja2.onkeyup = (e) => {
     }
 }
 
-function select2(element) {
-    let selectUserData = element.textContent;
+function select2(element = null, name = null) {
+    let selectUserData;
+    if (element == null) {
+        selectUserData = name;
+    } else {
+        selectUserData = element.textContent;
+    }
     caja2.value = selectUserData;
 
     searchWrapper2.classList.remove('active');
@@ -462,3 +486,164 @@ card2.addEventListener("click", () => {
     console.log(pokemon2Json);
 
 })
+
+// Inicio de pagina
+// Elegir los dos primeros pokemons
+let navBar = document.getElementById("nav-bar");
+let pokeFiller = document.getElementById("pokemons-filler");
+let searcher = document.getElementById("searcher");
+let initialPokemons = document.getElementById('search-pokemon');
+let img_default = document.getElementById("pokemon-img-1");
+let pokemonName1 = document.getElementById('pokemon-name-1');
+let img_default0 = document.getElementById("pokemon-img-2");
+let pokemonName0 = document.getElementById('pokemon-name-2');
+let imgContainer1 = document.getElementById('img-container1');
+let imgContainer2 = document.getElementById('img-container2');
+let cardG = document.getElementById('card');
+let faceCardFront = document.getElementById('face-card-front');
+let faceCardBack = document.getElementById('face-card-back');
+
+searcher.onkeyup = (e) => {
+    let userData = e.target.value;
+    let emptyArray = [];
+
+    if (userData) {
+        emptyArray = pokemons.filter((data) => {
+            return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
+        })
+
+        emptyArray = emptyArray.map((data) => {
+            return data = '<li>' + data + '</li>';
+        })
+
+        showSuggestions3(emptyArray);
+
+        let allList = pokeFiller.querySelectorAll("li");
+
+        for (let i = 0; i < allList.length; i++) {
+            allList[i].setAttribute("onclick", "select3(this)");
+        }
+
+        navBar.classList.add('active');
+
+        if (emptyArray.length <= 0) {
+            navBar.classList.remove('active');
+            while (pokeFiller.firstChild) {
+                pokeFiller.removeChild(pokeFiller.firstChild);
+            }
+        }
+    }
+
+    if (searcher.value == '') {
+        navBar.classList.remove('active');
+        while (pokeFiller.firstChild) {
+            pokeFiller.removeChild(pokeFiller.firstChild);
+        }
+    }
+}
+navBar.onkeyup = (e) => {
+    let allList = pokeFiller.querySelectorAll("li");
+    let max = allList.length;
+
+    e = e || window.event;
+
+    switch (e.key) {
+        case 'Enter':
+            console.log(`El numero es: ${numero}`);
+            select3(allList[numero - 1]);
+            numero = 0;
+            break;
+        case 'ArrowUp':
+            if (numero <= 1) {
+                numero = max;
+                allList[numero - 1].classList.add("is-active");
+            }
+            else if (numero > 0) {
+                numero--;
+                allList[numero - 1].classList.add("is-active");
+            }
+            break;
+        case 'ArrowDown':
+            if (numero < max) {
+                numero++;
+                allList[numero - 1].classList.add("is-active");
+            }
+            else if (numero = max) {
+                numero = 1;
+                allList[numero - 1].classList.add("is-active");
+            }
+            break;
+        default:
+            console.log('No se encuentra');
+    }
+}
+function select3(element) {
+    let poke1;
+    let poke2;
+
+    let selectUserData = element.textContent;
+    searcher.value = selectUserData;
+
+    buscarPokemon(selectUserData, pokemon, load);
+    function pokemon(dataPokemon) {
+
+        if (faceCardBack.classList.contains('is-active')) {
+            img_default0.setAttribute("src", dataPokemon.sprites.front_default);
+            pokemonName0.textContent = dataPokemon.name;
+            poke2 = dataPokemon.name;
+            select2(null, poke2);
+            // Animation
+            cardG.classList.remove('flipped');
+            faceCardBack.classList.remove('is-active');
+            faceCardFront.classList.add('posicionating');
+            faceCardBack.classList.add('posicionating');
+            initialPokemons.classList.add('all-done');
+            window.setTimeout(() => {
+                faceCardBack.classList.add('going-down');
+                faceCardFront.classList.add('going-down');
+                imgContainer1.classList.add('going-down');
+                imgContainer2.classList.add('going-down');
+                window.setTimeout(() => {
+                    pokeCont.classList.remove('is-not-active');
+                    initialPokemons.classList.add('is-not-active');
+                }, 1000)
+            }, 1000);
+        }
+        if (faceCardFront.classList.contains('is-active')) {
+            img_default.setAttribute("src", dataPokemon.sprites.front_default);
+            pokemonName1.textContent = dataPokemon.name;
+            poke1 = dataPokemon.name;
+            select(null, poke1);
+
+            faceCardFront.classList.remove('is-active');
+
+            faceCardBack.classList.add('is-active');
+        }
+    }
+    function load() {
+        if (faceCardFront.classList.contains('is-active')) {
+            window.setTimeout(() => {
+                cardG.classList.add('flipped');
+                searcher.value = '';
+            }, 500);
+        } else {
+            window.setTimeout(() => {
+                searcher.value = '';
+            }, 500);
+        }
+    }
+
+    while (pokeFiller.firstChild) {
+        pokeFiller.removeChild(pokeFiller.firstChild);
+    }
+}
+function showSuggestions3(list) {
+    let listData;
+    if (!list.length) {
+        userValue = searcher.value;
+        listData = '<li>' + userValue + '<li>';
+    } else {
+        listData = list.join('');
+    }
+    pokeFiller.innerHTML = listData;
+}
