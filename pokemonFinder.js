@@ -189,6 +189,7 @@ searchWrapper.onkeyup = (e) => {
         case 'Enter':
             console.log(`El numero es: ${numero}`);
             select(allList[numero - 1]);
+            searchWrapper.classList.remove('active');
             numero = 0;
             break;
         case 'ArrowUp':
@@ -352,6 +353,7 @@ searchWrapper2.onkeyup = (e) => {
         case 'Enter':
             console.log(`El numero es: ${numero}`);
             select2(allList[numero - 1]);
+            searchWrapper2.classList.remove('active');
             numero = 0;
             break;
         case 'ArrowUp':
@@ -502,6 +504,8 @@ let imgContainer2 = document.getElementById('img-container2');
 let cardG = document.getElementById('card');
 let faceCardFront = document.getElementById('face-card-front');
 let faceCardBack = document.getElementById('face-card-back');
+let body = document.getElementById('body');
+let bgImg = document.getElementById('bg-img');
 
 searcher.onkeyup = (e) => {
     let userData = e.target.value;
@@ -551,6 +555,7 @@ navBar.onkeyup = (e) => {
         case 'Enter':
             console.log(`El numero es: ${numero}`);
             select3(allList[numero - 1]);
+            navBar.classList.remove('active');
             numero = 0;
             break;
         case 'ArrowUp':
@@ -605,7 +610,9 @@ function select3(element) {
                 imgContainer2.classList.add('going-down');
                 window.setTimeout(() => {
                     pokeCont.classList.remove('is-not-active');
+                    body.classList.add('heigth')
                     initialPokemons.classList.add('is-not-active');
+                    bgImg.classList.add('re-size');
                 }, 1000)
             }, 1000);
         }
@@ -624,6 +631,7 @@ function select3(element) {
         if (faceCardFront.classList.contains('is-active')) {
             window.setTimeout(() => {
                 cardG.classList.add('flipped');
+                document.getElementById('choose_pokemon').textContent = "Elige otro Pokémon";
                 searcher.value = '';
             }, 500);
         } else {
