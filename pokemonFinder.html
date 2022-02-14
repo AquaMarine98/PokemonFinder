@@ -12,7 +12,8 @@
     <title>Pokemon Finder</title>
 </head>
 
-<body>
+<body id="body">
+    <div id="bg-img"></div>
     <div id="box-container">
         <header>
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/2560px-International_Pok%C3%A9mon_logo.svg.png"
@@ -21,7 +22,7 @@
 
         <div id="pokemons-container" class="is-not-active">
 
-            <div id="containers" >
+            <div class="containers" >
                 <div id="box1">
                     <h1>Buscar Pokemon</h1>
                     <div id="wrapper">
@@ -81,7 +82,7 @@
                 </div>
             </div>
 <!-- ----------------------------------------------------------------- -->
-            <div id="containers" >
+            <div class="containers" >
                 <div id="box2">
                     <h1>Buscar Pokemon</h1>
                     <div id="wrapper-2">
@@ -143,7 +144,7 @@
         </div>
 
         <div id="search-pokemon">
-            <h1 class="choose-pokemon">Elije un Pokémon</h1>
+            <h1 id="choose_pokemon" class="choose-pokemon">Elige un Pokémon</h1>
             <div id="nav-bar">
                 <input type="text" id="searcher" placeholder="Pokémon" spellcheck="false">
                 <div id="pokemons-filler"></div>
