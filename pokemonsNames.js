@@ -18,6 +18,4 @@ window.onload = () => {
 				}
 			}
 		})
-
-	console.log(pokemons);
 }
