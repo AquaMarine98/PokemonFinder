@@ -496,6 +496,9 @@ h1 {
 }
 
 @media (max-width: 600px) {
+    html {
+        height: 110%;
+    }
     body.heigth {
         height: auto;
     }
