@@ -602,7 +602,7 @@ function select3(element) {
             faceCardFront.classList.add('posicionating');
             faceCardBack.classList.add('posicionating');
             initialPokemons.classList.add('all-done');
-            initialPokemons.classList.add('growWidth');
+            initialPokemons.classList.add('growWidth'); 
             window.setTimeout(() => {
                 faceCardBack.classList.add('going-down');
                 faceCardFront.classList.add('going-down');
