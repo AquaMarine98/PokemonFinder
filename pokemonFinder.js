@@ -506,6 +506,7 @@ let faceCardFront = document.getElementById('face-card-front');
 let faceCardBack = document.getElementById('face-card-back');
 let body = document.getElementById('body');
 let htmlBody = document.querySelector('html');
+let boxContainer = document.getElementById('box-container');
 
 searcher.onkeyup = (e) => {
     let userData = e.target.value;
@@ -614,6 +615,7 @@ function select3(element) {
                     body.classList.add('heigth')
                     initialPokemons.classList.add('is-not-active');
                     htmlBody.classList.add('all-done');
+                    boxContainer.classList.add('all-done');
                 }, 1000)
             }, 1000);
         }
