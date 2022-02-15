@@ -505,7 +505,6 @@ let cardG = document.getElementById('card');
 let faceCardFront = document.getElementById('face-card-front');
 let faceCardBack = document.getElementById('face-card-back');
 let body = document.getElementById('body');
-let bgImg = document.getElementById('bg-img');
 
 searcher.onkeyup = (e) => {
     let userData = e.target.value;
@@ -603,6 +602,7 @@ function select3(element) {
             faceCardFront.classList.add('posicionating');
             faceCardBack.classList.add('posicionating');
             initialPokemons.classList.add('all-done');
+            initialPokemons.classList.add('growWidth');
             window.setTimeout(() => {
                 faceCardBack.classList.add('going-down');
                 faceCardFront.classList.add('going-down');
@@ -612,7 +612,6 @@ function select3(element) {
                     pokeCont.classList.remove('is-not-active');
                     body.classList.add('heigth')
                     initialPokemons.classList.add('is-not-active');
-                    bgImg.classList.add('re-size');
                 }, 1000)
             }, 1000);
         }
