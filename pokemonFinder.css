@@ -23,6 +23,7 @@
   }
 html{
     height: 100%;
+    position: relative;
 }
 body {
     font-family: 'Dongle', sans-serif;
@@ -43,13 +44,13 @@ header{
     background-image: url(./Imagenes/poke\ BG.jpg);
     height: 100%;
     width: 100%;
-    position: absolute;
+    position: fixed;
     opacity: .5;
 }
 #box-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     height: 100%;
     width: 100%;
@@ -338,6 +339,7 @@ h1 {
 #search-pokemon {
     height: 65%;
     width: 35%;
+    margin-bottom: 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -347,6 +349,15 @@ h1 {
     border: 3.5px solid white;
     border-radius: 8px;
     outline: 3.5px solid black;
+}
+#search-pokemon.growWidth {
+    animation: growWidth 1s;
+
+    width: 70%;
+}
+@keyframes growWidth {
+    0% {width: 35%;}
+    100% {width: 70%;}
 }
 #search-pokemon.is-not-active {
     display: none;
@@ -488,12 +499,6 @@ h1 {
     body.heigth {
         height: auto;
     }
-    #bg-img {
-        width: 320px;
-    }
-    #bg-img.re-size {
-        height: 905px;
-    }
     #logo {
         width: 80%;
         padding: 0;
@@ -508,22 +513,33 @@ h1 {
     #search-pokemon {
         width: 80%;
     }
+    #search-pokemon.growWidth {
+        animation: none;
+    }
     #box-container {
-         height: auto;
+         height: 100%;
          width: auto;
     }
     
     #face-card-front.posicionating {
         transform: translateX(0px);
-        transform: translateY(150px);
+        transform: translateY(90px);
 
     }
     #face-card-back.posicionating {
         transform: translateX(0px);
         transform: rotateY(0deg);
-        transform: translateY(-100px);
+        transform: translateY(-140px);
     }
 
+    #img-container1, #img-container2 {
+        width: 150px;
+        height: 150px;
+    }
+    #face-card-front.going-down, #face-card-back.going-down {
+        transition: transform 1s;
+        height: 218px;
+    }
     #img-container1.going-down {
         transform: translateY(0px);
         transform: translateX(200px);
@@ -532,8 +548,18 @@ h1 {
         transform: translateY(0px);
         transform: translateX(-200px);
     }
-    #face-card-front.going-down, #face-card-back.going-down {
-        transition: transform 1s;
-        height: 268px;
+}
+@media (min-width: 1024px) {
+    #search-pokemon {
+        width: 25%;
+    }
+    #search-pokemon.growWidth {
+        animation: growWidth 1s;
+
+        width: 50%;
+    }
+    @keyframes growWidth {
+        0% {width: 25%;}
+        100% {width: 50%;}
     }
 }
