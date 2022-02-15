@@ -496,7 +496,7 @@ h1 {
 }
 
 @media (max-width: 600px) {
-    html {
+    html.all-done {
         height: 110%;
     }
     body.heigth {
